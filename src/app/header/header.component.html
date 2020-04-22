@@ -1,0 +1,30 @@
+
+  <!--Navigation bar-->
+  <nav id="nav1" class="navbar navbar-expand-lg navbar-light bg-light ">
+    <a class="navbar-brand" href="#">
+      <img id="wacodisLogo" class="img-responsive" src="assets/wacodisLogo_trans.png" alt="">
+    </a>
+    <ul class="navbar-nav">
+<!--Button 'Job Übersicht'-->
+      <li>
+        <a class="nav-link" href="#">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="onSelect('job-overview')"
+          >Job Übersicht</button>
+        </a>
+<!--Button 'Job anlegen'-->
+      </li>
+      <li>
+        <a class="nav-link" href="#">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="onSelect('job-new')"
+            >Job anlegen</button>
+        </a>
+
+      </li>
+    </ul>
+  </nav>

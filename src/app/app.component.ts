@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-wacodis-job-scheduler';
+  loadedFeature = 'job-overview';
+
+  onNavigate(selectedFeature: string) {
+    this.loadedFeature = selectedFeature;
+  }
 }

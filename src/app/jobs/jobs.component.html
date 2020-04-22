@@ -1,0 +1,21 @@
+<br>
+<div class="row">
+<!--job list-->
+  <div class="col-md-6">
+    <app-job-list
+      (selectedJobElement)="selectedJobItem = $event"
+    ></app-job-list>
+  </div>
+<!--job details-->
+  <div class="col-md-6">
+    <app-job-details
+      *ngIf="selectedJobItem; else infoText"
+      [job] = "selectedJobItem"
+    ></app-job-details>
+    <ng-template #infoText>
+      <p>
+        Click 'Details' to see more information
+      </p>
+    </ng-template>
+  </div>
+</div>
