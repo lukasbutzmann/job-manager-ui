@@ -1,5 +1,3 @@
-
-
 export class Job {
   public id: string;
   public name: string;

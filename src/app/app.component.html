@@ -1,14 +1,19 @@
-<div class="container">
-  <app-header (selectedFeature) = "onNavigate($event)"></app-header>
+<div class="container-fluid">
+<!--Header-->
+  <app-header
+    (selectedFeature) = "onNavigate($event)">
+  </app-header>
 </div>
 
-  <div class="container">
+<div class="container">
+<!--View: Jobs overview -->
     <app-jobs
      *ngIf="loadedFeature === 'job-overview'">
     </app-jobs>
+<!--View new Job -->
     <app-job-new
       *ngIf="loadedFeature === 'job-new'">
     </app-job-new>
-  </div>
+</div>
 
 
