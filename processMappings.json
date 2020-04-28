@@ -1,0 +1,96 @@
+[
+    {
+        "processId": "de.hsbo.wacodis.forest_vitality_change",
+        "name": "Änderung der Waldvitalität",
+        "productCollection": [
+            "forest-vitality-change"
+        ],
+        "inputs": [
+            {
+                "inputType": "CopernicusSubsetDefinition",
+                "processInputId": "OPTICAL_IMAGES_SOURCES_1"
+            },
+            {
+                "inputType": "CopernicusSubsetDefinition",
+                "processInputId": "OPTICAL_IMAGES_SOURCES_2"
+            }
+        ]
+    },
+    {
+        "processId": "de.hsbo.wacodis.land_cover_classification",
+        "name": "Landbedeckungsklassifikation",
+        "productCollection": [
+            "land-cover-classification"
+        ],
+        "inputs": [
+            {
+                "inputType": "CopernicusSubsetDefinition",
+                "processInputId": "OPTICAL_IMAGES_SOURCES"
+            },
+            {
+                "inputType": "StaticSubsetDefinition",
+                "processInputId": "REFERENCE_DATA"
+            },
+            {
+                "inputType": "StaticSubsetDefinition",
+                "processInputId": "AREA_OF_INTEREST"
+            }
+        ]
+    },
+    {
+        "processId": "de.hsbo.wacodis.sealing_factor",
+        "name": "Versiegelungsgrad",
+        "productCollection": [
+            "sealing-factor"
+        ],
+        "inputs": [
+            {
+                "inputType": "CopernicusSubsetDefinition",
+                "processInputId": "OPTICAL_IMAGES_SOURCES"
+            },
+            {
+                "inputType": "StaticSubsetDefinition",
+                "processInputId": "MASKING_DATA"
+            }
+        ]
+    },
+    {
+        "processId": "de.hsbo.wacodis.vegetation_density_lai",
+        "name": "Vegetationsdichte (Leaf Area Index)",
+        "productCollection": [
+            "vegetation-density-lai"
+        ],
+        "inputs": [
+            {
+                "inputType": "CopernicusSubsetDefinition",
+                "processInputId": "OPTICAL_IMAGES_SOURCES"
+            }
+        ]
+    },
+    {
+        "processId": "de.hsbo.wacodis.snap.ndvi",
+        "name": "Normalized Difference Vegetation Index",
+        "productCollection": [
+            "ndvi"
+        ],
+        "inputs": [
+            {
+                "inputType": "CopernicusSubsetDefinition",
+                "processInputId": "SENTINEL_2_IMAGE_SOURCE"
+            }
+        ]
+    },
+    {
+        "processId": "de.hsbo.wacodis.snap.ndwi2",
+        "name": "Normalized Difference Water Index 2",
+        "productCollection": [
+            "ndwi2"
+        ],
+        "inputs": [
+            {
+                "inputType": "CopernicusSubsetDefinition",
+                "processInputId": "SENTINEL_2_IMAGE_SOURCE"
+            }
+        ]
+    }
+]
