@@ -4,7 +4,8 @@
   </div> -->
   <div class="container">
     <app-job-list-item
-      *ngFor= "let jobElement of jobs"
+      *ngFor= "let jobElement of jobs; let i = index"
+      [id] = "i"
       [job] = "jobElement"
       (selectedJobItem) = "onJobItemSelected(jobElement)">
     </app-job-list-item>

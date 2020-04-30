@@ -1,11 +1,13 @@
 <br>
 <div class="row">
+
 <!--job list-->
   <div class="col-md-6">
     <app-job-list
       (selectedJobElement)="selectedJobItem = $event"
     ></app-job-list>
   </div>
+
 <!--job details-->
   <div class="col-md-6">
     <app-job-details
@@ -18,4 +20,5 @@
       </p>
     </ng-template>
   </div>
+
 </div>

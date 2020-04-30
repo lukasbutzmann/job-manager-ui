@@ -1,5 +1,6 @@
+import { DataService } from './../../data.service';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Job } from '../job.model';
-import { Component, Output, EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -7,10 +8,11 @@ import { Component, Output, EventEmitter } from '@angular/core';
   templateUrl: './job-list.component.html',
   styleUrls: ['./job-list.component.css']
 })
-export class JobListComponent  {
+export class JobListComponent implements OnInit {
   @Output() selectedJobElement = new EventEmitter<Job>();
+  jobs: Job[] = [];
 
-  jobs: Job[] = [
+/*   jobs: Job[] = [
     new Job('Landnutzungsklassifikation 1',
              'Klassifizierung von Grünflächen',
             '04/13/2019',
@@ -26,8 +28,13 @@ export class JobListComponent  {
               '04/21/2020',
               'inactive',
               15)
-  ];
+  ]; */
 
+  constructor(private dataService: DataService){}
+
+  ngOnInit(){
+    this.jobs = this.dataService.jobs;
+  }
 
   onJobItemSelected(selectedJob: Job) {
     this.selectedJobElement.emit(selectedJob);

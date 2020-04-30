@@ -7,8 +7,9 @@ import { Job } from './job.model';
   styleUrls: ['./jobs.component.css']
 })
 export class JobsComponent {
-selectedJobItem: Job;
+  selectedJobItem: Job;
 
 
 
 }
+
