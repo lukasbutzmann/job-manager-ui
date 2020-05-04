@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { DataService } from './../data.service';
+import { Component, OnInit } from '@angular/core';
 import { Job } from './job.model';
 
 @Component({
@@ -6,10 +7,19 @@ import { Job } from './job.model';
   templateUrl: './jobs.component.html',
   styleUrls: ['./jobs.component.css']
 })
-export class JobsComponent {
+export class JobsComponent implements OnInit {
   selectedJobItem: Job;
 
+  constructor(private dataService: DataService) {}
 
+  ngOnInit() {
+    this.dataService.jobSelected
+    .subscribe(
+      (job: Job) => {
+        this.selectedJobItem = job;
+      }
+    );
+  }
 
 }
 

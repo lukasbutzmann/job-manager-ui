@@ -1,7 +1,7 @@
 
 import { DataService } from './../../../data.service';
 import { Job } from '../../job.model';
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 
 @Component({
   selector: 'app-job-list-item',
@@ -10,32 +10,16 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 })
 export class JobListItemComponent implements OnInit {
-
   @Input() job: Job;
-  @Output() selectedJobItem = new EventEmitter<void>();
-
-  @Input() id: number;
-
 
   constructor( private dataService: DataService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
   onSelected(){
-    this.selectedJobItem.emit();
-    this.dataService.message();
-    console.log(this.id);
-    console.log(this.job);
-    this.dataService.selectJobByID(this.id);
-    console.log(this.dataService.job);
+    this.dataService.jobSelected.emit(this.job);
   }
-
-  //  onSelected() {
-  //    this.dataService.selectJobByID(this.id);
-  //    console.log(this.dataService.job);
-  //    console.log(this.id);
-  // }
 
 }
