@@ -6,23 +6,31 @@
     </a>
     <ul class="navbar-nav">
 <!--Button 'Job Übersicht'-->
-      <li>
-        <a class="nav-link" href="#">
+      <li
+        role="presentation"
+        routerLinkActive = "active"
+        [routerLinkActiveOptions]="{exact:true}">
+        <a
+          class="nav-link"
+          routerLink="/">
           <button
             type="button"
             class="btn btn-outline-secondary"
-            (click)="onSelect('job-overview')"
-          >Job Übersicht</button>
+          >Jobs Übersicht</button>
         </a>
 <!--Button 'Job anlegen'-->
       </li>
-      <li>
-        <a class="nav-link" href="#">
+      <li
+        role="presentation"
+        routerLinkActive = "active">
+        <a
+          class="nav-link"
+          routerLink="newJob">
           <button
             type="button"
             class="btn btn-outline-secondary"
-            (click)="onSelect('job-new')"
-            >Job anlegen</button>
+            >Job anlegen
+          </button>
         </a>
 
       </li>

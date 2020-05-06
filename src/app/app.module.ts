@@ -1,7 +1,8 @@
 
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { JobListComponent } from './jobs/job-list/job-list.component';
@@ -13,6 +14,10 @@ import { JobsComponent } from './jobs/jobs.component';
 import { JobListItemComponent } from './jobs/job-list/job-list-item/job-list-item.component';
 import { DataService } from './data.service';
 
+const appRoutes: Routes = [
+  {path: '', component: JobsComponent},
+  {path: 'newJob', component: JobNewComponent}
+];
 
 @NgModule({
   declarations: [
@@ -26,7 +31,9 @@ import { DataService } from './data.service';
     JobsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

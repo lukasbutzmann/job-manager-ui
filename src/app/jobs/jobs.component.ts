@@ -8,6 +8,7 @@ import { Job } from './job.model';
   styleUrls: ['./jobs.component.css']
 })
 export class JobsComponent implements OnInit {
+
   selectedJobItem: Job;
 
   constructor(private dataService: DataService) {}
