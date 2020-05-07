@@ -13,6 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { JobListItemComponent } from './jobs/job-list/job-list-item/job-list-item.component';
 import { DataService } from './data.service';
+import { LeafletMapComponent } from './job-new/leaflet-map/leaflet-map.component';
 
 const appRoutes: Routes = [
   {path: '', component: JobsComponent},
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
     JobNewComponent,
     JobListItemComponent,
     HeaderComponent,
-    JobsComponent
+    JobsComponent,
+    LeafletMapComponent
   ],
   imports: [
     BrowserModule,

@@ -37,7 +37,7 @@
     </div>
 <!-- max Cloud coverage -->
       <div class="form-group">
-        <label for="amount">maximale Wolkenbedeckung</label>
+        <label for="cloudCoverage">maximale Wolkenbedeckung</label>
         <input
           style="max-width:300px;"
           type="number"
@@ -48,14 +48,34 @@
           class="form-control"
           #amountInput>
       </div>
+<!-- Job name -->
+      <div class="form-group">
+        <label for="observationExtent">Gib die Koordinaten des Observationsgebiets ein, oder ...</label>
+        <input
+          style="max-width:300px;"
+          class="form-control"
+          id="inputName"
+          placeholder="">
+        <small id="Help" class="form-text text-muted">Eingabereihenfolge: min Longitude, min Latitude, max Longitude, max Latitude, z.B. 7.1179, 51.2407, 7.2527, 51.2884 </small>
+      </div>
+
+<!-- Map -->
+      <div class="form-group">
+        <label for="leafletmap"
+        > ... selektiere das Observationsgebiet</label>
+        <app-leaflet-map></app-leaflet-map>
+      </div>
   </form>
+
 <!--Submit button-->
   <button
     type="button"
     class="btn btn-primary"
+    style="margin: 5px;"
     (click) = onSubmit()>
     Job erstellen
   </button>
+
 </div>
 
 
