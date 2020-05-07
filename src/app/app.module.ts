@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './app-routing.module';
 
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,10 +16,6 @@ import { JobListItemComponent } from './jobs/job-list/job-list-item/job-list-ite
 import { DataService } from './data.service';
 import { LeafletMapComponent } from './job-new/leaflet-map/leaflet-map.component';
 
-const appRoutes: Routes = [
-  {path: '', component: JobsComponent},
-  {path: 'newJob', component: JobNewComponent}
-];
 
 @NgModule({
   declarations: [
@@ -35,7 +32,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     RouterModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
