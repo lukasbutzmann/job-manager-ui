@@ -65,6 +65,20 @@
         > ... selektiere das Observationsgebiet</label>
         <app-leaflet-map></app-leaflet-map>
       </div>
+
+<!--Ausführungsintervall (als cronjob)-->
+      <div class="form-group">
+        <label for="pattern">Ausführungsintervall als Cronjob</label>
+        <input
+          style="max-width:300px;"
+          class="form-control"
+          id="inputName"
+          placeholder="">
+        <small id="Help" class="form-text text-muted"> Wie du einen Cronjob angibst findest du hier:
+          <a href="https://crontab.guru/">https://crontab.guru/</a>
+          . Zum Beispiel 5 0 * 8 * (um 00:05 Uhr im August)
+        </small>
+      </div>
   </form>
 
 <!--Submit button-->
