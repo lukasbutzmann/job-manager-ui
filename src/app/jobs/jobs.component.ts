@@ -1,6 +1,6 @@
 import { DataService } from './../data.service';
 import { Component, OnInit } from '@angular/core';
-import { Job } from './job.model';
+import { Job } from '../models/job.model';
 
 @Component({
   selector: 'app-jobs',
@@ -14,6 +14,8 @@ export class JobsComponent implements OnInit {
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
+    // this.dataService.getData();
+
     this.dataService.jobSelected
     .subscribe(
       (job: Job) => {

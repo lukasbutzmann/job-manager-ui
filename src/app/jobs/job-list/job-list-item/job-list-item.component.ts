@@ -1,6 +1,6 @@
 
 import { DataService } from './../../../data.service';
-import { Job } from '../../job.model';
+import { Job } from '../../../models/job.model';
 import { Component, OnInit, Input} from '@angular/core';
 
 @Component({
