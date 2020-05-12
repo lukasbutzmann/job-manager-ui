@@ -1,9 +1,8 @@
-import { Page } from './models/page.model';
-import { Job1 } from './models/job1.model';
+import { Page } from './modelGet/page.model';
+import { Job } from './modelGet/job.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
 
-import { Job } from './models/job.model';
 import { map } from 'rxjs/operators';
 
 
@@ -31,7 +30,7 @@ export class DataService {
   //           15)
   // ];
 
-  private jobs: Job1[] = [];
+  private jobs: Job[] = [];
 
   constructor(private http: HttpClient) { }
 

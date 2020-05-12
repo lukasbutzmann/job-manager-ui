@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Job } from '../../models/job.model';
+import { Job } from '../../modelGet/job.model';
 
 @Component({
   selector: 'app-job-details',

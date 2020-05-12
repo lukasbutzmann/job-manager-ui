@@ -1,9 +1,8 @@
-import { Job1 } from './../../models/job1.model';
-import { Page } from './../../models/page.model';
-import { logging } from 'protractor';
+import { Job } from '../../modelGet/job.model';
+import { Page } from '../../modelGet/page.model';
 import { DataService } from './../../data.service';
 import { Component, OnInit } from '@angular/core';
-import { Job } from '../../models/job.model';
+
 
 
 @Component({
@@ -12,7 +11,7 @@ import { Job } from '../../models/job.model';
   styleUrls: ['./job-list.component.css']
 })
 export class JobListComponent implements OnInit {
-  jobs: Job1[] = [];
+  jobs: Job[] = [];
 
 
   constructor(private dataService: DataService) { }

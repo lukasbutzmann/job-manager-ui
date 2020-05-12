@@ -1,8 +1,8 @@
-import { Job1 } from './job1.model';
+import { Job } from './job.model';
 
 export interface Page {
   page: number;
   size: number;
   total: number;
-  data: Job1[];
+  data: Job[];
 }

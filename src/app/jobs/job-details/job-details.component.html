@@ -3,8 +3,14 @@
   <h4>{{job.name}}</h4>
   <p>Created: {{job.created}}</p>
   <hr>
+  <p>Observationsgebiet (Koordinatenangabe in EPSG:4326): {{job.areaOfInterest.extent}}</p>
   <p>Beschreibung: {{job.description}}</p>
+  <p>Anwendungsfall: {{job.useCase}}</p>
   <p>Status: {{job.status}}</p>
-  <p>Maximale Wolkenbedeckung: {{job.maximumCloudCoverage}}</p>
+  <p>Inputs: {{job.inputs}}</p>
+  <p>(optional) Ausführungsintervall (cron Format) : {{job.execution.pattern}}</p>
+  <p>Zeitliche Abdeckung (ISO8601 Format): {{job.temporalCoverage.duration}}</p>
+
+  <!-- <p>Maximale Wolkenbedeckung: {{job.maximumCloudCoverage}}</p> -->
 </div>
 
