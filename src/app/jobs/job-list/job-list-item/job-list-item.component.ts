@@ -20,6 +20,7 @@ export class JobListItemComponent implements OnInit {
 
   onSelected(){
     this.dataService.jobSelected.emit(this.job);
+
   }
 
 }
