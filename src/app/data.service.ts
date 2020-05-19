@@ -12,25 +12,9 @@ import { map } from 'rxjs/operators';
 export class DataService {
   jobSelected = new EventEmitter<Job>();
 
-  // private jobs: Job[] = [
-  // new Job('Landnutzungsklassifikation 1',
-  //         'Klassifizierung von Grünflächen',
-  //         '04/13/2019',
-  //         'waiting',
-  //         15),
-  // new Job('Landnutzungsklassifikation 2',
-  //         'Klassifizierung von Nutzflächen',
-  //         '04/15/2019',
-  //         'running',
-  //         10),
-  // new Job ( 'Versiegelungsgrad',
-  //           'Versiegelung berechnen',
-  //           '04/21/2020',
-  //           'inactive',
-  //           15)
-  // ];
-
   private jobs: Job[] = [];
+
+  // job = ['sdfgh', 'dfgh'];
 
   constructor(private http: HttpClient) { }
 
@@ -38,35 +22,38 @@ export class DataService {
     return this.jobs.slice();
   }
 
-  // here we fetch the jobs from the server
+  // Fetch jobs from server
   private getData() {
-    return this.http.get<Page>('https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions');
-    // .pipe
-    //   (map(responseData => {
-    //     const jobsArray = [];
-    //   // tslint:disable-next-line: forin
-    //     for (const key in responseData) {
-    //       jobsArray.push({...responseData[key] });
-    //   }
-    //     return jobsArray[3];
-    //   })
-    // )
-    // .subscribe((jobs: Page ) => {
-    //   console.log(jobs.data);
-    //   // return jobs.data;
-    // });
+    return this.http.get<Page>('http://localhost:8080/jobDefinitions');
+    // 'https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions'
+
   }
 
   onGetData() {
     return this.getData();
   }
+  // post Job to server
+  // postJob(job: Job) {
+  //   this.http.post('https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions', job);
+  // }
 
-  postData() {
-    // here post request
+  storeData(job) {
+    const job1 = job;
+    return this.http.
+      post(
+        'http://localhost:8080/jobDefinitions', job1
+      );
   }
 
-  deleteData() {
-    // here delete request
+ // deletes a selected job when clicking the delete button
+  deleteData(id: string) {
+    console.log(id);
+    return this.http.delete(`http://localhost:8080/jobDefinitions/${id}`);
+  }
+
+
+  patchJob() {
+    // patch an existent job
   }
 }
 

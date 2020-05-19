@@ -1,7 +1,9 @@
+import { Inputs } from './inputs.model';
 import { RetrySettings } from './retrySettings.model';
 import { TemporalCoverage } from './temporalCoverage.model';
 import { Execution } from './execution.model';
 import { AreaOfInterest } from './areaOfInterest.model';
+
 
 
 export interface Job {
@@ -10,7 +12,7 @@ export interface Job {
   description: string;
   execution: Execution;
   id: string;
-  inputs: any[]; // TODO: How to resolve this? Two different objects in an array --> define subclasses? But how?
+  inputs: Inputs; // any[] TODO: How to resolve this? Two different objects in an array --> define subclasses? But how?
   lastFinishedExecution: string;
   name: string;
   processingTool: string;

@@ -20,7 +20,11 @@ export class JobListItemComponent implements OnInit {
 
   onSelected(){
     this.dataService.jobSelected.emit(this.job);
+  }
 
+// delete method which is executed when Delete button of an item is clicked
+  onDelete(){
+    this.dataService.deleteData(this.job.id).subscribe();
   }
 
 }
