@@ -17,6 +17,9 @@ import { JobsComponent } from './jobs/jobs.component';
 import { JobListItemComponent } from './jobs/job-list/job-list-item/job-list-item.component';
 import { DataService } from './data.service';
 import { LeafletMapComponent } from './job-new/leaflet-map/leaflet-map.component';
+import { CopernicusSubsetComponent } from './job-new/copernicus-subset/copernicus-subset.component';
+import { StaticSubsetComponent } from './job-new/static-subset/static-subset.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -29,14 +32,17 @@ import { LeafletMapComponent } from './job-new/leaflet-map/leaflet-map.component
     JobListItemComponent,
     HeaderComponent,
     JobsComponent,
-    LeafletMapComponent
+    LeafletMapComponent,
+    CopernicusSubsetComponent,
+    StaticSubsetComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

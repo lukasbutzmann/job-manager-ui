@@ -3,15 +3,15 @@ import { AreaOfInterest } from './../modelGet/areaOfInterest.model';
 
 export interface JobPost {
   areaOfInterest: AreaOfInterest;
-  // created: string;
-  // description: string;
-  // execution: {
-  //   event: {
-  //     eventType: 'SingleJobExecution'
-  //   },
-  //   pattern: string
-  // };
-  // id: string;
+  created: '';
+  description: '';
+  execution: {
+    event: {
+      eventType: 'SingleJobExecution'
+    },
+    pattern: ''
+  };
+  id: '';
   inputs: [
     {
       identifier: string,
@@ -26,18 +26,18 @@ export interface JobPost {
       dataType: string
     }
   ];
-  // lastFinishedExecution: string;
+  lastFinishedExecution: '';
   name: string;
   processingTool: string;
   productCollection: string;
-  // retrySettings: {
-  //   maxRetries: number,
-  //   retryDelay_Millies: number
-  // };
-  // status: string;
-  // temporalCoverage: {
-  //   duration: string,
-  //   previousExecution: true
-  // };
-  // useCase: string;
+  retrySettings: {
+    maxRetries: number,
+    retryDelay_Millies: number
+  };
+  status: string;
+  temporalCoverage: {
+    duration: string,
+    previousExecution: true
+  };
+  useCase: string;
 }

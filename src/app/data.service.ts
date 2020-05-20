@@ -24,7 +24,7 @@ export class DataService {
 
   // Fetch jobs from server
   private getData() {
-    return this.http.get<Page>('http://localhost:8080/jobDefinitions');
+    return this.http.get<Page>('https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions');
     // 'https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions'
 
   }

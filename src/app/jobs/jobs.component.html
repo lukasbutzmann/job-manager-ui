@@ -1,18 +1,19 @@
-<br>
+<br />
+<div class="wrapper">
 <div class="row">
-
-<!--job list-->
-  <div class="col-md-6">
+  <!--job list-->
+  <div  class="col-md-12">
     <app-job-list
       (selectedJobElement)="selectedJobItem = $event"
     ></app-job-list>
   </div>
 
-<!--job details-->
-  <div class="col-md-6">
+  <!--job details-->
+  <!-- <div class="col-md-6">
+    <div>
     <app-job-details
       *ngIf="selectedJobItem; else infoText"
-      [job] = "selectedJobItem"
+      [job]="selectedJobItem"
     ></app-job-details>
     <ng-template #infoText>
       <p>
@@ -20,5 +21,6 @@
       </p>
     </ng-template>
   </div>
-
+  </div> -->
+</div>
 </div>

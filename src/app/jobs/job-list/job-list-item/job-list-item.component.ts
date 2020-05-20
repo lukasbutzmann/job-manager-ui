@@ -12,6 +12,8 @@ import { Component, OnInit, Input} from '@angular/core';
 export class JobListItemComponent implements OnInit {
   @Input() job: Job;
 
+  public isCollapsed = true;
+
   constructor( private dataService: DataService) {
   }
 
@@ -19,6 +21,7 @@ export class JobListItemComponent implements OnInit {
   }
 
   onSelected(){
+    this.isCollapsed = !this.isCollapsed;
     this.dataService.jobSelected.emit(this.job);
   }
 

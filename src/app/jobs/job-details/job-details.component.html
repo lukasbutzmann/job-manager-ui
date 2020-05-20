@@ -1,15 +1,15 @@
 <!--When 'Details' is clicked, this is rendered in the detail section-->
-<div>
+<div >
   <h4>{{job.name}}</h4>
   <p>Created: {{job.created}}</p>
   <hr>
-  <p>Observationsgebiet (Koordinatenangabe in EPSG:4326): {{job.areaOfInterest.extent}}</p>
-  <p>Beschreibung: {{job.description}}</p>
-  <p>Anwendungsfall: {{job.useCase}}</p>
-  <p>Status: {{job.status}}</p>
-  <p>Inputs: {{job.inputs}}</p>
-  <p>(optional) Ausführungsintervall (cron Format) : {{job.execution.pattern}}</p>
-  <p>Zeitliche Abdeckung (ISO8601 Format): {{job.temporalCoverage.duration}}</p>
+  <p> <b>Observationsgebiet (Koordinatenangabe in EPSG:4326)</b> <br> {{job.areaOfInterest.extent}}</p>
+  <p *ngIf="job.description"><b> Beschreibung</b> <br>{{job.description}}</p>
+  <p *ngIf="job.useCase"><b>Anwendungsfall</b> <br>{{job.useCase}}</p>
+  <p><b>Status</b> <br>{{job.status}}</p>
+  <p><b>Inputs</b> <br> {{job.inputs}}</p>
+  <p *ngIf="job.execution.pattern"><b>Ausführungsintervall (cron Format)</b><br>{{job.execution.pattern}}</p>
+  <p *ngIf="job.temporalCoverage.duration"><b>zeitliche Abdeckung (ISO8601 Format)</b> <br>{{job.temporalCoverage.duration}}</p>
 
   <!-- <p>Maximale Wolkenbedeckung: {{job.maximumCloudCoverage}}</p> -->
 </div>
