@@ -1,9 +1,7 @@
 <div class="container" style="margin-top: 20px;">
-  <div style="margin-bottom: 20px;">
-    <h4 align="center">Job anlegen</h4>
-  </div>
+  <h4 align="center">Job anlegen</h4>
   <form (ngSubmit)="onSubmit()" #f="ngForm">
-<!--Processing tool-->
+    <!--Processing tool-->
     <div class="form-group">
       <label class="my-1 mr-2" for="formCustomSelectPref">Werkzeug</label>
       <select
@@ -24,7 +22,7 @@
       </select>
     </div>
 
-<!-- Job name -->
+    <!-- Job name -->
     <div class="form-group">
       <label for="inputName">Jobname</label>
       <input
@@ -38,7 +36,7 @@
       />
     </div>
 
-<!-- Job description-->
+    <!-- Job description-->
     <div class="form-group">
       <label for="inputDescription">Jobbeschreibung</label>
       <textarea
@@ -51,7 +49,7 @@
       ></textarea>
     </div>
 
-<!-- max Cloud coverage -->
+    <!-- max Cloud coverage -->
     <div class="form-group">
       <label for="cloudCoverage">maximale Wolkenbedeckung</label>
       <input
@@ -68,7 +66,7 @@
       />
     </div>
 
-<!-- Coordinates -->
+    <!-- Coordinates -->
     <div class="form-group">
       <label for="observationExtent">Koordinaten des Observationsgebiets</label>
       <input
@@ -85,14 +83,14 @@
       </small>
     </div>
 
-<!-- Map -->
+    <!-- Map -->
     <!-- <div class="form-group">
         <label for="leafletmap"
         > ... selektiere das Observationsgebiet</label>
         <app-leaflet-map></app-leaflet-map>
       </div> -->
 
-<!--Ausführungsintervall (as cronjob)-->
+    <!--Ausführungsintervall (as cronjob)-->
     <div class="form-group">
       <label for="pattern">Ausführungsintervall als Cronjob</label>
       <input
@@ -110,7 +108,9 @@
       </small>
     </div>
 
-<!--Submit button-->
+    <app-static-subset></app-static-subset>
+    <app-copernicus-subset></app-copernicus-subset>
+    <!--Submit button-->
     <button
       type="button submit"
       class="btn btn-primary"

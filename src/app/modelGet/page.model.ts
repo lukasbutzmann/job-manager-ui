@@ -1,8 +1,8 @@
-import { Job } from './job.model';
+// import { Job } from './job.model';
 
-export interface Page {
+export interface Page<T> {
   page: number;
   size: number;
   total: number;
-  data: Job[];
+  data: T[];
 }

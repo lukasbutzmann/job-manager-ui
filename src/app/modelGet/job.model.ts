@@ -1,10 +1,8 @@
-import { Inputs } from './inputs.model';
+import { Input} from './input.model';
 import { RetrySettings } from './retrySettings.model';
 import { TemporalCoverage } from './temporalCoverage.model';
 import { Execution } from './execution.model';
 import { AreaOfInterest } from './areaOfInterest.model';
-
-
 
 export interface Job {
   areaOfInterest: AreaOfInterest;
@@ -12,7 +10,8 @@ export interface Job {
   description: string;
   execution: Execution;
   id: string;
-  inputs: Inputs; // any[] TODO: How to resolve this? Two different objects in an array --> define subclasses? But how?
+  // inputs: (Input | StaticSubsetDefinition | CopernicusSubsetDefinition)[]; // any[] TODO: How to resolve this? Two different objects in an array --> define subclasses? But how?
+  inputs: Input[];
   lastFinishedExecution: string;
   name: string;
   processingTool: string;

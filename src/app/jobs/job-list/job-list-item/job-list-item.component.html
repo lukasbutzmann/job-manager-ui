@@ -1,9 +1,9 @@
 <div class="card" style="margin-bottom: 10px;">
-  <div class="card-header">
+  <div class="card-header" style="background-color: #E3ECF6;" >
     <h4>{{ job.name }}</h4>
   </div>
   <div style="padding: 10px;" class="card-body">
-    <p class="card-text">Beschreibung: {{ job.description }}</p>
+    <p class="card-text">{{ job.description }}</p>
     <p class="card-text">
       <small class="text-muted">Erstellt: {{ job.created }}</small>
     </p>
@@ -101,6 +101,10 @@
               {{ job.name }}
             </p>
             <p>
+              <b>Erstellt:</b> <br />
+              {{ job.created }}
+            </p>
+            <p>
               <b>Observationsgebiet (Koordinatenangabe in EPSG:4326)</b> <br />
               {{ job.areaOfInterest.extent }}
             </p>
@@ -113,7 +117,21 @@
             <p><b>Status</b> <br />{{ job.status }}</p>
             <p>
               <b>Inputs</b> <br />
-              {{ job.inputs }}
+              <span *ngFor="let input of job.inputs">
+                * SOURCETYPE: "{{input.sourceType}}" <br/>
+                * IDENTIFER: "{{input.identifier}}" <br/>
+                <span *ngIf="input.sourceType == 'StaticSubsetDefinition'">
+                  This is Static<br/>
+                  * DATATYPE: {{input.dataType}}<br/>
+                  * VALUE: {{input.value}}<br/>
+                </span>
+                <span *ngIf="input.sourceType == 'CopernicusSubsetDefinition'">
+                  This is Copernicus<br/>
+                  * MAXIMUMCLOUDVOVERAGE: {{input.maximumCloudCoverage}}<br/>
+                  * SATELLITE: {{input.satellite}}<br/>
+                </span>
+                <br/><br/>
+              </span>
             </p>
             <p *ngIf="job.execution.pattern">
               <b>Ausführungsintervall (cron Format)</b><br />{{
@@ -133,3 +151,4 @@
     </div>
   </div>
 </div>
+<br>

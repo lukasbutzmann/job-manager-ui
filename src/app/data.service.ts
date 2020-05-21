@@ -1,3 +1,4 @@
+import { AreaOfInterest } from './modelGet/areaOfInterest.model';
 import { Page } from './modelGet/page.model';
 import { Job } from './modelGet/job.model';
 import { HttpClient } from '@angular/common/http';
@@ -24,7 +25,7 @@ export class DataService {
 
   // Fetch jobs from server
   private getData() {
-    return this.http.get<Page>('https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions');
+    return this.http.get<Page<Job>>('http://localhost:8080/jobDefinitions');
     // 'https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions'
 
   }
