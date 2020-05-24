@@ -4,6 +4,8 @@ import { DataService } from './../data.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, NgModule, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ProcessMapping } from './../processMapping.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-job-new',
@@ -23,7 +25,7 @@ export class JobNewComponent implements OnInit {
       ]
     },
     created: '2020-05-15T09:46:18.537Z',
-    description: 'sealing factor',
+    description: 'testing sealing factor via swagger',
     execution: {
       event: {
         eventType: 'SingleJobExecutionEvent'
@@ -44,14 +46,15 @@ export class JobNewComponent implements OnInit {
         value: 'http://wacodis.eftas.com:8081/geoserver/wacodis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=wacodis:mask_befestigungsgrad&outputFormat=gml3',
         dataType: 'text'
       }
+
     ],
     lastFinishedExecution: '2020-05-15T09:46:18.537Z',
-    name: 'Sealing',
+    name: 'test manual sealing factor',
     processingTool: 'de.hsbo.wacodis.sealing_factor',
     productCollection: 'sealing-factor',
     retrySettings: {
-     maxRetries: 0,
-     retryDelay_Millies: 0
+      maxRetries: 0,
+      retryDelay_Millies: 0
     },
     status: 'waiting',
     temporalCoverage: {
@@ -60,36 +63,44 @@ export class JobNewComponent implements OnInit {
     },
     useCase: ''
   };
-
   // job: JobPost;
 
-  constructor(private router: Router, private dataService: DataService) { }
+  // initialize the process mapping
+  processMappings: ProcessMapping[] = [];
 
-  ngOnInit(): void {
+  constructor(private router: Router, private dataService: DataService, private http: HttpClient) { }
+
+  ngOnInit() {
+  // get an instance of the process mappings
+    this.http.get<ProcessMapping[]>('assets/processMappings.json').subscribe(data => {
+      // console.log(data[1].inputs);
+      this.processMappings = data;
+    });
 
   }
 
   // here we access the form object before actually submitting it.
   // Therefore we use ViewChild as above
   onSubmit() {
-    console.log(this.signupForm);
+    // console.log(this.signupForm);
   }
 
-  // here we submit the form object and print it in the console
-  // onSubmitJob(form: NgForm) {
-  //    console.log('submitted', form);
-  //  }
+  // submit form object and print it in console
+/*   onSubmitJob(form: NgForm) {
+     console.log('submitted', form);
+   } */
 
 
   // post a new job to the server
   onSubmitJob() {
-    console.log(this.signupForm);
-    this.dataService.storeData(this.job)
+    // console.log(this.signupForm);
+/*     this.dataService.storeData(this.job)
       .subscribe(responseData => {
         console.log(responseData);
-      });
-    this.dataService.storeData(this.job);
+      }); */
+    // this.dataService.storeData(this.job);
     // this.router.navigate(['/']);
+    // console.log(this.processMappings[0].inputs);
   }
 
 }

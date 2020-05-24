@@ -1,1 +1,40 @@
-<p>copernicus-subset works!</p>
+<!-- max Cloud coverage -->
+<h6 style="color: #4d80bc;">Copernicus Subset</h6>
+
+
+<form>
+  <!--Satellite-->
+  <div class="form-group">
+    <label class="my-1 mr-2" for="formCustomSelectPref">Satellit</label>
+    <select
+      class="form-control"
+      id="formCustomSelectPref"
+      style="max-width: 300px;"
+      ngModel
+      name="satellite"
+      required
+    >
+      <option selected></option>
+      <option value="1">sentinel-1</option>
+      <option value="2">sentinel-2</option>
+      <option value="3">sentinel-3</option>
+    </select>
+  </div>
+
+  <!--maximum Cloud Coverage-->
+  <div class="form-group">
+    <label for="cloudCoverage">maximale Wolkenbedeckung</label>
+    <input
+      style="max-width: 300px;"
+      type="number"
+      min="0"
+      max="100"
+      oninput="validity.valid||(value='');"
+      id="amount"
+      class="form-control"
+      #amountInput
+      ngModel
+      name="maxCloudCoverage"
+    />
+  </div>
+</form>

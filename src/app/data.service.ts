@@ -1,10 +1,11 @@
-import { AreaOfInterest } from './modelGet/areaOfInterest.model';
+import { JobsComponent } from './jobs/jobs.component';
+import { JobPost } from './modelPost/JobPost.model';
 import { Page } from './modelGet/page.model';
 import { Job } from './modelGet/job.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
 
-import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -12,33 +13,26 @@ import { map } from 'rxjs/operators';
 })
 export class DataService {
   jobSelected = new EventEmitter<Job>();
+  jobs: Job[] = [];
 
-  private jobs: Job[] = [];
 
-  // job = ['sdfgh', 'dfgh'];
+  jobsChanged = new Subject<Job[]>();
 
   constructor(private http: HttpClient) { }
 
-  getJobs() {
-    return this.jobs.slice();
-  }
+
 
   // Fetch jobs from server
-  private getData() {
-    return this.http.get<Page<Job>>('http://localhost:8080/jobDefinitions');
-    // 'https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions'
-
+  getData() {
+   return this.http.
+      get<Page<Job>>(
+        'http://localhost:8080/jobDefinitions');
+       // 'https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions'
   }
 
-  onGetData() {
-    return this.getData();
-  }
-  // post Job to server
-  // postJob(job: Job) {
-  //   this.http.post('https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions', job);
-  // }
 
-  storeData(job) {
+  // Post a job
+  storeData(job: JobPost) {
     const job1 = job;
     return this.http.
       post(
@@ -46,15 +40,13 @@ export class DataService {
       );
   }
 
- // deletes a selected job when clicking the delete button
+  // Delete selected job
+  /* TODO This doesn't update the page yet. Probably the delete function should be implemented in the list component, so that after
+  the job with the certain ID can be refreshed */
   deleteData(id: string) {
-    console.log(id);
     return this.http.delete(`http://localhost:8080/jobDefinitions/${id}`);
   }
 
 
-  patchJob() {
-    // patch an existent job
-  }
 }
 

@@ -1,4 +1,4 @@
-
+import { Subject } from 'rxjs';
 import { DataService } from './../../../data.service';
 import { Job } from '../../../modelGet/job.model';
 import { Component, OnInit, Input} from '@angular/core';
@@ -11,6 +11,7 @@ import { Component, OnInit, Input} from '@angular/core';
 })
 export class JobListItemComponent implements OnInit {
   @Input() job: Job;
+  // create Subject for ID and you subscribe to this subject in the job list component
 
   public isCollapsed = true;
 
@@ -22,12 +23,14 @@ export class JobListItemComponent implements OnInit {
 
   onSelected(){
     this.isCollapsed = !this.isCollapsed;
-    this.dataService.jobSelected.emit(this.job);
+    // this.dataService.jobSelected.emit(this.job);
   }
 
 // delete method which is executed when Delete button of an item is clicked
+// this should also set fire the Subject JobID, so that the job list receives the ID
   onDelete(){
-    this.dataService.deleteData(this.job.id).subscribe();
+    this.dataService.deleteData(this.job.id);
+
   }
 
 }

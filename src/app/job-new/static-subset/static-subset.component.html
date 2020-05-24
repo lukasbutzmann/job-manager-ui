@@ -1,25 +1,34 @@
-<div class="form-group">
-  <label for="datatype">Datentyp</label>
-  <input
-    style="max-width: 300px;"
-    class="form-control"
-    id="datatype"
-    placeholder=""
-    ngModel
-    name="datatype"
-    required
-  />
-</div>
+<h6 style="color: #4d80bc;">Statisches Subset</h6>
 
-<div class="form-group">
-  <label for="value">Wert</label>
-  <input
-    style="max-width: 300px;"
-    class="form-control"
-    id="value"
-    placeholder=""
-    ngModel
-    name="value"
-    required
-  />
-</div>
+
+<form>
+  <div class="form-group">
+    <label for="value">Wert</label>
+    <input
+      style="max-width: 300px;"
+      class="form-control"
+      id="value"
+      placeholder=""
+      ngModel
+      name="value"
+      required
+    />
+  </div>
+
+  <!---->
+  <div class="form-group">
+    <label class="my-1 mr-2" for="formCustomSelectPref">Datentyp</label>
+    <select
+      class="form-control"
+      id="formCustomSelectPref"
+      style="max-width: 300px;"
+      ngModel
+      name="satellite"
+      required
+    >
+      <option selected></option>
+      <option value="text">Text</option>
+      <option value="numeric">numerisch</option>
+    </select>
+  </div>
+</form>

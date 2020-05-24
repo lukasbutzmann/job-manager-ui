@@ -1,9 +1,8 @@
-import { map } from 'rxjs/operators';
 
 import { Job } from '../../modelGet/job.model';
 import { Page } from '../../modelGet/page.model';
 import { DataService } from './../../data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 
 
 
@@ -19,14 +18,11 @@ export class JobListComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    // this.jobs = this.dataService.getJobs();
 
     // here all jobs from the server are fetched with a method defined in the data service
-    this.dataService.onGetData()
-      .subscribe((jobs: Page<any> ) => {
-        console.log(jobs.data);
+    this.dataService.getData()
+      .subscribe((jobs: Page<any>) => {
         this.jobs = jobs.data;
-        // return jobs.data;
       });
 
   }

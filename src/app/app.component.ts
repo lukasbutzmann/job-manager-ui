@@ -1,3 +1,4 @@
+import { ProcessMapping } from './processMapping.model';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -8,7 +9,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent implements OnInit {
 
-  processMappings: any = [];
+  processMappings: ProcessMapping[] = [];
+  // ProcessMapping = [];
 // define a public property for the process mapping
   /* public processMapping: {
     processId: string,
@@ -35,8 +37,7 @@ export class AppComponent implements OnInit {
   constructor(private httpClient: HttpClient){}
 
    ngOnInit(){
-    this.httpClient.get('assets/processMappings.json').subscribe(data => {
-      console.log(data);
+    this.httpClient.get<ProcessMapping[]>('assets/processMappings.json').subscribe(data => {
       this.processMappings = data;
     });
    }
