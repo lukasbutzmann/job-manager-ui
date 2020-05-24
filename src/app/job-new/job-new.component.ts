@@ -93,7 +93,7 @@ export class JobNewComponent implements OnInit {
 
   // post a new job to the server
   onSubmitJob() {
-    // console.log(this.signupForm);
+    console.log(this.signupForm);
 /*     this.dataService.storeData(this.job)
       .subscribe(responseData => {
         console.log(responseData);

@@ -6,6 +6,23 @@ select.ng-invalid.ng-touched {
   border: 1px solid red
 }
 
+::ng-deep .card {
+  margin-bottom: 20px;
+
+}
+
+/* ::ng-deep .card-header {
+  background-color: #E3ECF6;
+} */
+
+::ng-deep .card-header.title {
+  color: black;
+}
+
+
+
+
 /* .container{
   padding-top: 100px;
 } */
+
