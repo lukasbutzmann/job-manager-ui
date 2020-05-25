@@ -28,6 +28,7 @@
       (click)="isCollapsed = !isCollapsed"
       [attr.aria-expanded]="!isCollapsed"
       aria-controls="collapseExample"
+      style="border-color: #e3ecf6; color: #e3ecf6; background-color: #4D80BD;"
     >
       Details
     </button>
@@ -36,7 +37,7 @@
 
         <!--Edit button-->
         <button
-          style="margin: 5px;"
+          style="margin: 5px; color:#4D80BD; border-color: #4D80BD"
           type="button"
           class="btn btn-outline-primary"
         >
@@ -101,7 +102,7 @@
               {{ job.name }}
             </p>
             <p>
-              <b>Erstellt:</b> <br />
+              <b >Erstellt:</b> <br />
               {{ job.created }}
             </p>
             <p>

@@ -11,9 +11,9 @@ select.ng-invalid.ng-touched {
 
 }
 
-/* ::ng-deep .card-header {
-  background-color: #E3ECF6;
-} */
+::ng-deep .card-header {
+  background-color:  #e3ecf6;
+}
 
 ::ng-deep .card-header.title {
   color: black;
