@@ -1,3 +1,5 @@
+// import { Job } from './../../modelGet/job.model';
+
 
 import { Job } from '../../modelGet/job.model';
 import { Page } from '../../modelGet/page.model';
@@ -19,9 +21,9 @@ export class JobListComponent implements OnInit {
 
   ngOnInit() {
 
-    // here all jobs from the server are fetched with a method defined in the data service
+    // all jobs from the server are fetched with a method defined in the data service
     this.dataService.getData()
-      .subscribe((jobs: Page<any>) => {
+      .subscribe((jobs) => {
         this.jobs = jobs.data;
       });
 

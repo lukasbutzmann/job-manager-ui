@@ -1,4 +1,4 @@
-import { JobsComponent } from './jobs/jobs.component';
+// import { JobsComponent } from './jobs/jobs.component';
 import { JobPost } from './modelPost/JobPost.model';
 import { Page } from './modelGet/page.model';
 import { Job } from './modelGet/job.model';

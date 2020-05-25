@@ -1,27 +1,7 @@
 <div class="container" style="margin-top: 20px;">
-  <br>
+  <br />
   <h2 align="center">Job anlegen</h2>
-  <form (ngSubmit)="onSubmit()" #f="ngForm">
-    <!--Processing tool-->
-    <div class="form-group">
-      <label class="my-1 mr-2" for="tool">Werkzeug</label>
-      <select
-        class="form-control"
-        id="formCustomSelectPref"
-        style="max-width: 300px;"
-        ngModel
-        name="tool"
-        required
-      >
-        <option selected></option>
-        <option
-          *ngFor="let process of processMappings"
-          [value]="process.processId"
-          >{{ process.name }}</option
-        >
-      </select>
-    </div>
-
+  <form (ngSubmit)="onSubmitJob()" #f="ngForm">
     <!-- Job name -->
     <div class="form-group">
       <label for="inputName">Jobname</label>
@@ -33,7 +13,11 @@
         ngModel
         name="jobName"
         required
+        #jobName="ngModel"
       />
+      <!--       <span class="help-block" style="color: red; font-size: small;" *ngIf="!jobName.valid && jobName.touched"
+        >Bitte gib einen Jobnamen an</span
+      > -->
     </div>
 
     <!-- Coordinates -->
@@ -55,13 +39,67 @@
       </small>
     </div>
 
+    <!--Processing tool-->
+    <div class="form-group">
+      <label class="my-1 mr-2" for="tool">Werkzeug</label>
+      <select
+        class="form-control"
+        id="formCustomSelectPref"
+        style="max-width: 300px;"
+        [(ngModel)]="selectedProcessingTool"
+        name="tool"
+        required
+      >
+        <option selected></option>
+        <option
+          *ngFor="let process of processMappings"
+          [value]="process.processId"
+          >{{ process.name }}</option
+        >
+      </select>
+    </div>
+
+    <!--Show selected processing tool-->
+    <!-- <p>{{selectedProcessingTool}}</p> -->
+
+
+    <div class="form-group">
+      <div *ngFor="let process of processMappings">
+        <div *ngIf="process.processId === selectedProcessingTool">
+         <p>Definiere die Eingabedaten</p>
+          <div *ngFor="let input of process.inputs; let i = index">
+            <ngb-accordion
+              [closeOthers]="true"
+              #acc="ngbAccordion"
+              activeIds="ngb-panel-0"
+            >
+              <ngb-panel title="{{ input.inputType }}">
+                <ng-template ngbPanelContent>
+                  <app-static-subset
+                    *ngIf="
+                      input.inputType == 'StaticSubsetDefinition';
+                      else copernicus
+                    "
+                  ></app-static-subset>
+                </ng-template>
+                <ng-template #copernicus>
+                  <app-copernicus-subset></app-copernicus-subset>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+
     <!-- Job description-->
     <div class="form-group">
-      <label for="inputDescription">Jobbeschreibung</label>
+      <label for="jobDescription">Jobbeschreibung</label>
       <textarea
         style="max-width: 300px;"
         class="form-control"
-        id="inputDescription"
+        id="jobDescription"
         rows="3"
         ngModel
         name="jobDescription"
@@ -81,7 +119,7 @@
       <input
         style="max-width: 300px;"
         class="form-control"
-        id="inputName"
+        id="pattern"
         placeholder=""
         ngModel
         name="cronJob_pattern"
@@ -95,37 +133,6 @@
     <br />
     <br />
 
-    <p>Definiere die Eingabedaten</p>
-    <div *ngFor="let process of processMappings">
-
-      <div
-        *ngIf="process.processId == 'de.hsbo.wacodis.snap.ndvi'" >
-         <!--TODO *ngIf="process.processId == 'selected process in the tool formcontrol'"" -->
-        <div *ngFor="let input of process.inputs; let i = index">
-          <ngb-accordion
-            [closeOthers]="true"
-            #acc="ngbAccordion"
-            activeIds="ngb-panel-0"
-          >
-            <ngb-panel title="{{ input.inputType }}">
-              <ng-template ngbPanelContent>
-                <app-static-subset
-                  *ngIf="
-                    input.inputType == 'StaticSubsetDefinition';
-                    else copernicus
-                  "
-                ></app-static-subset>
-              </ng-template>
-              <ng-template #copernicus>
-                <app-copernicus-subset></app-copernicus-subset>
-              </ng-template>
-            </ngb-panel>
-          </ngb-accordion>
-        </div>
-      </div>
-    </div>
-    <br />
-    <br />
     <!--Submit button-->
     <button
       type="button submit"
@@ -139,7 +146,7 @@
     </button>
   </form>
 </div>
-<br>
+<br />
 
 <!--Render Inputtypefields-->
 <!--     <div *ngFor="let process of processMappings">

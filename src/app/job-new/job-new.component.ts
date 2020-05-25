@@ -68,36 +68,34 @@ export class JobNewComponent implements OnInit {
   // initialize the process mapping
   processMappings: ProcessMapping[] = [];
 
+  // set selected Processing Tool
+  selectedProcessingTool = '';
+
   constructor(private router: Router, private dataService: DataService, private http: HttpClient) { }
 
   ngOnInit() {
-  // get an instance of the process mappings
+
+    // get an instance of the process mappings
     this.http.get<ProcessMapping[]>('assets/processMappings.json').subscribe(data => {
-      // console.log(data[1].inputs);
       this.processMappings = data;
     });
 
   }
 
-  // here we access the form object before actually submitting it.
-  // Therefore we use ViewChild as above
-  onSubmit() {
-    // console.log(this.signupForm);
-  }
 
   // submit form object and print it in console
-/*   onSubmitJob(form: NgForm) {
-     console.log('submitted', form);
-   } */
+/*     onSubmitJob(form: NgForm) {
+       console.log('submitted', form);
+     } */
 
 
   // post a new job to the server
   onSubmitJob() {
     console.log(this.signupForm);
-/*     this.dataService.storeData(this.job)
-      .subscribe(responseData => {
-        console.log(responseData);
-      }); */
+    /*     this.dataService.storeData(this.job)
+          .subscribe(responseData => {
+            console.log(responseData);
+          }); */
     // this.dataService.storeData(this.job);
     // this.router.navigate(['/']);
     // console.log(this.processMappings[0].inputs);
