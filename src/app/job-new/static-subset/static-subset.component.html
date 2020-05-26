@@ -1,7 +1,8 @@
 <!-- <h6 style="color: #4d80bc;">Statisches Subset</h6> -->
 
 
-<form>
+<fieldset ngModelGroup= "staticSubsetDefinition_{{index}}">
+
   <div class="form-group">
     <label for="value">Wert</label>
     <input
@@ -10,20 +11,20 @@
       id="value"
       placeholder=""
       ngModel
-      name="value"
+      name = "value"
       required
     />
   </div>
 
   <!---->
   <div class="form-group">
-    <label class="my-1 mr-2" for="formCustomSelectPref">Datentyp</label>
+    <label class="my-1 mr-2" for="dataType">Datentyp</label>
     <select
       class="form-control"
-      id="formCustomSelectPref"
+      id="dataType"
       style="max-width: 300px;"
       ngModel
-      name="datatyp"
+      name="dataType"
       required
     >
       <option selected></option>
@@ -31,4 +32,4 @@
       <option value="numeric">numerisch</option>
     </select>
   </div>
-</form>
+</fieldset>

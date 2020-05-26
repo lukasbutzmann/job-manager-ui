@@ -2,22 +2,22 @@
 <!-- <h6 style="color: #4d80bc;">Copernicus Subset</h6> -->
 
 
-<form>
+<fieldset ngModelGroup="copernicusSubsetDefinition_{{index}}">
   <!--Satellite-->
   <div class="form-group">
-    <label class="my-1 mr-2" for="formCustomSelectPref">Satellit</label>
+    <label class="my-1 mr-2" for="satellite">Satellit</label>
     <select
       class="form-control"
-      id="formCustomSelectPref"
+      id="satellite"
       style="max-width: 300px;"
       ngModel
       name="satellite"
       required
     >
       <option selected></option>
-      <option value="1">sentinel-1</option>
-      <option value="2">sentinel-2</option>
-      <option value="3">sentinel-3</option>
+      <option value="sentinel-1">Sentinel-1</option>
+      <option value="sentinel-2">Sentinel-2</option>
+      <option value="sentinel-3">Sentinel-3</option>
     </select>
   </div>
 
@@ -38,4 +38,4 @@
       required
     />
   </div>
-</form>
+</fieldset>

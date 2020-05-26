@@ -21,24 +21,27 @@
     </div>
 
     <!-- Coordinates -->
-    <div class="form-group">
-      <label for="observationExtent">Koordinaten des Observationsgebiets</label>
-      <input
-        style="max-width: 300px;"
-        class="form-control"
-        id="inputName"
-        placeholder=""
-        ngModel
-        name="coordinates"
-        ngModel
-        required
-      />
-      <small id="Help" class="form-text text-muted"
-        >Eingabereihenfolge: min Longitude, min Latitude, max Longitude, max
-        Latitude, z.B. 7.1179, 51.2407, 7.2527, 51.2884
-      </small>
-    </div>
-
+    <fieldset ngModelGroup="areaOfInterest">
+      <div class="form-group">
+        <label for="observationExtent"
+          >Koordinaten des Observationsgebiets</label
+        >
+        <input
+          style="max-width: 300px;"
+          class="form-control"
+          id="inputName"
+          placeholder=""
+          ngModel
+          name="extent"
+          ngModel
+          required
+        />
+        <small id="Help" class="form-text text-muted"
+          >Eingabereihenfolge: min Longitude, min Latitude, max Longitude, max
+          Latitude, z.B. 7.1179, 51.2407, 7.2527, 51.2884
+        </small>
+      </div>
+    </fieldset>
     <!--Processing tool-->
     <div class="form-group">
       <label class="my-1 mr-2" for="tool">Werkzeug</label>
@@ -47,7 +50,7 @@
         id="formCustomSelectPref"
         style="max-width: 300px;"
         [(ngModel)]="selectedProcessingTool"
-        name="tool"
+        name="processingTool"
         required
       >
         <option selected></option>
@@ -62,11 +65,10 @@
     <!--Show selected processing tool-->
     <!-- <p>{{selectedProcessingTool}}</p> -->
 
-
     <div class="form-group">
       <div *ngFor="let process of processMappings">
         <div *ngIf="process.processId === selectedProcessingTool">
-         <p>Definiere die Eingabedaten</p>
+          <p style="color: gray;">Definiere die Eingabedaten</p>
           <div *ngFor="let input of process.inputs; let i = index">
             <ngb-accordion
               [closeOthers]="true"
@@ -75,7 +77,7 @@
             >
               <ngb-panel title="{{ input.inputType }}">
                 <ng-template ngbPanelContent>
-                  <app-static-subset
+                  <app-static-subset [index]="i"
                     *ngIf="
                       input.inputType == 'StaticSubsetDefinition';
                       else copernicus
@@ -83,7 +85,7 @@
                   ></app-static-subset>
                 </ng-template>
                 <ng-template #copernicus>
-                  <app-copernicus-subset></app-copernicus-subset>
+                  <app-copernicus-subset [index]="i"></app-copernicus-subset>
                 </ng-template>
               </ngb-panel>
             </ngb-accordion>
@@ -91,6 +93,7 @@
         </div>
       </div>
     </div>
+
     <br />
 
     <!-- Job description-->
@@ -114,22 +117,24 @@
       </div> -->
 
     <!--Ausführungsintervall (as cronjob)-->
-    <div class="form-group">
-      <label for="pattern">Ausführungsintervall als Cronjob</label>
-      <input
-        style="max-width: 300px;"
-        class="form-control"
-        id="pattern"
-        placeholder=""
-        ngModel
-        name="cronJob_pattern"
-      />
-      <small id="Help" class="form-text text-muted">
-        Wie du einen Cronjob angibst findest du hier:
-        <a href="https://crontab.guru/">https://crontab.guru/</a>
-        . Zum Beispiel 5 0 * 8 * (um 00:05 Uhr im August)
-      </small>
-    </div>
+    <fieldset ngModelGroup="execution">
+      <div class="form-group">
+        <label for="pattern">Ausführungsintervall als Cronjob</label>
+        <input
+          style="max-width: 300px;"
+          class="form-control"
+          id="pattern"
+          placeholder=""
+          ngModel
+          name="pattern"
+        />
+        <small id="Help" class="form-text text-muted">
+          Wie du einen Cronjob angibst findest du hier:
+          <a href="https://crontab.guru/">https://crontab.guru/</a>
+          . Zum Beispiel 5 0 * 8 * (um 00:05 Uhr im August)
+        </small>
+      </div>
+    </fieldset>
     <br />
     <br />
 
@@ -139,7 +144,7 @@
       class="btn btn-primary"
       style="margin: 5px;"
       (click)="onSubmitJob()"
-      style="border-color: #e3ecf6; color: #e3ecf6; background-color: #4D80BD;"
+      style="border-color: #e3ecf6; color: #e3ecf6; background-color: #4d80bd;"
     >
       <!--(click) = onSubmit(job)-->
       Abschicken
@@ -148,21 +153,5 @@
 </div>
 <br />
 
-<!--Render Inputtypefields-->
-<!--     <div *ngFor="let process of processMappings">
-      <div
-        *ngIf="process.processId == 'de.hsbo.wacodis.land_cover_classification'"
-      >
-        <div *ngFor="let input of process.inputs; let i = index">
-          <br />
-          <br />
-
-          <app-static-subset
-            *ngIf="input.inputType == 'StaticSubsetDefinition'; else copernicus"
-          ></app-static-subset>
-          <ng-template #copernicus>
-            <app-copernicus-subset></app-copernicus-subset>
-          </ng-template>
-        </div>
-      </div>
-    </div> -->
+<!--Show form object as json -->
+<pre>{{ f.value | json }}</pre>

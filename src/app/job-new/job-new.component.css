@@ -19,6 +19,10 @@ select.ng-invalid.ng-touched {
   color: black;
 }
 
+label {
+  font-weight: bold;
+
+}
 
 
 
