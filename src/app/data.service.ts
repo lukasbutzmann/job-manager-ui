@@ -24,20 +24,17 @@ export class DataService {
 
   // Fetch jobs from server
   getData() {
-   return this.http.
+    return this.http.
       get<Page<Job>>(
         'http://localhost:8080/jobDefinitions');
-       // 'https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions'
+    // 'https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions'
   }
 
 
   // Post a job
-  storeData(job: JobPost) {
+  storeData(job: any) {
     const job1 = job;
-    return this.http.
-      post(
-        'http://localhost:8080/jobDefinitions', job1
-      );
+    return this.http.post('http://localhost:8080/jobDefinitions', job1);
   }
 
   // Delete selected job

@@ -1,7 +1,7 @@
 <div class="container" style="margin-top: 20px;">
   <br />
   <h2 align="center">Job anlegen</h2>
-  <form (ngSubmit)="onSubmitJob()" #f="ngForm">
+  <form (ngSubmit)="onSubmitJob()" #f="ngForm"> <!-- <form (ngSubmit)="onSubmitJob(f)" #f="ngForm"> This here takes the form object and sends it to the server -->
     <!-- Job name -->
     <div class="form-group">
       <label for="inputName">Jobname</label>
@@ -77,7 +77,7 @@
             >
               <ngb-panel title="{{ input.inputType }}">
                 <ng-template ngbPanelContent>
-                  <app-static-subset [index]="i"
+                  <app-static-subset [index]="i" [defaultProcessID]="input.processInputId"
                     *ngIf="
                       input.inputType == 'StaticSubsetDefinition';
                       else copernicus
@@ -143,10 +143,8 @@
       type="button submit"
       class="btn btn-primary"
       style="margin: 5px;"
-      (click)="onSubmitJob()"
       style="border-color: #e3ecf6; color: #e3ecf6; background-color: #4d80bd;"
     >
-      <!--(click) = onSubmit(job)-->
       Abschicken
     </button>
   </form>

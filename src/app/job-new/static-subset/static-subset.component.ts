@@ -9,6 +9,7 @@ import { ControlContainer, NgForm } from '@angular/forms';
 })
 export class StaticSubsetComponent implements OnInit {
 @Input() index: number;
+@Input() defaultProcessID: string;
 
   constructor() { }
 

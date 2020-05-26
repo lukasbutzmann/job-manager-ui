@@ -1,5 +1,4 @@
-import { JobPost } from './../modelPost/JobPost.model';
-import { Job } from './../modelGet/job.model';
+
 import { DataService } from './../data.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, NgModule, ViewChild } from '@angular/core';
@@ -24,7 +23,7 @@ export class JobNewComponent implements OnInit {
         51.319
       ]
     },
-    created: '2020-05-15T09:46:18.537Z',
+    created: '',
     description: 'testing sealing factor via swagger',
     execution: {
       event: {
@@ -84,21 +83,32 @@ export class JobNewComponent implements OnInit {
 
 
   // submit form object and print it in console
-/*     onSubmitJob(form: NgForm) {
-       console.log('submitted', form);
-     } */
+  /*     onSubmitJob(form: NgForm) {
+         console.log('submitted', form);
+       } */
 
 
   // post a new job to the server
   onSubmitJob() {
-    console.log(this.signupForm);
-    /*     this.dataService.storeData(this.job)
-          .subscribe(responseData => {
-            console.log(responseData);
-          }); */
-    // this.dataService.storeData(this.job);
+    // console.log(this.signupForm);
+    this.dataService.storeData(this.job)
+      .subscribe(responseData => {
+        console.log(responseData);
+        this.router.navigate(['/']);
+      });
+
+    // this.dataService.storeData(this.job).subscribe();
     // this.router.navigate(['/']);
     // console.log(this.processMappings[0].inputs);
   }
+
+    // post a new job in a form  to the server
+/*     onSubmitJob(form: NgForm) {
+      this.dataService.storeData(form)
+        .subscribe(responseData => {
+          console.log(responseData);
+        });
+    } */
+
 
 }
