@@ -1,7 +1,19 @@
 <!-- <h6 style="color: #4d80bc;">Statisches Subset</h6> -->
 
-<fieldset ngModelGroup="input_{{index}}">
-<fieldset ngModelGroup= "staticSubsetDefinition">
+<fieldset ngModelGroup="input_{{ index }}">
+  <input
+    type="hidden"
+    name="identifier"
+    id="identifier"
+    [(ngModel)]="defaultProcessID"
+  />
+
+  <input
+  type="hidden"
+  name="sourceType"
+  id="sourceType"
+  [(ngModel)]="sourceType"
+/>
 
   <div class="form-group">
     <label for="value">Wert</label>
@@ -11,7 +23,7 @@
       id="value"
       placeholder=""
       ngModel
-      name = "value"
+      name="value"
       required
     />
   </div>
@@ -33,5 +45,5 @@
     </select>
   </div>
 </fieldset>
-</fieldset>
-<p>{{defaultProcessID}}</p>
+
+<p>{{ defaultProcessID }}</p>

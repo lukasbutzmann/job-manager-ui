@@ -28,7 +28,7 @@
         style="max-width: 350px;"
         class="form-control"
         id="inputName"
-        placeholder=" z.B.:  7.1179, 51.2407, 7.2527, 51.2884"
+        placeholder=" z.B.  7.1179, 51.2407, 7.2527, 51.2884"
         ngModel
         name="extent"
         ngModel
@@ -65,7 +65,7 @@
     <div class="form-group">
       <div *ngFor="let process of processMappings">
         <div *ngIf="process.processId === selectedProcessingTool">
-          <p style="color: gray;">Definiere die Eingabedaten</p>
+          <p style="color: red;">Definiere die Eingabedaten</p>
           <div *ngFor="let input of process.inputs; let i = index">
             <ngb-accordion
               [closeOthers]="true"
@@ -84,7 +84,10 @@
                   ></app-static-subset>
                 </ng-template>
                 <ng-template #copernicus>
-                  <app-copernicus-subset [index]="i"></app-copernicus-subset>
+                  <app-copernicus-subset
+                    [index]="i"
+                    [defaultProcessID]="input.processInputId"
+                  ></app-copernicus-subset>
                 </ng-template>
               </ngb-panel>
             </ngb-accordion>
@@ -92,6 +95,7 @@
         </div>
       </div>
     </div>
+    <br />
 
     <!-- Job description-->
     <div class="form-group">
@@ -133,15 +137,16 @@
     <!--Ausführungsintervall (as cronjob)-->
     <br />
     <br />
-    <h5 style="color: #4d80bd;">Diesen Job planen</h5>
+    <h4 style="color: #4d80bd;">Diesen Job planen</h4>
     <p style="color: dimgray;">
       Die folgenden Angaben werden benötigt, um den Prozess mehrfach in
-      bestimmten Abständen oder zu bestimmten Tages-/Wochen-/... zeiten automatisch
-      auszuführen. Ohne diese Angaben wird der Job einmal sofort nach klicken auf den 'Abschicken'-Knopf ausgeführt.
+      bestimmten Abständen oder zu bestimmten Tages-/Wochen-/... zeiten
+      automatisch auszuführen. Ohne diese Angaben wird der Job einmal sofort
+      nach klicken auf den 'Abschicken'-Knopf ausgeführt.
     </p>
     <br />
     <div class="form-group">
-      <label for="pattern">Ausführungsintervall als Cronjob</label>
+      <label for="pattern">Ausführungsmoment als Cronjob</label>
       <input
         style="max-width: 350px;"
         class="form-control"
@@ -152,12 +157,11 @@
       />
       <small id="Help" class="form-text text-muted">
         Wie du einen Cronjob angibst findest du hier:
-        <a href="https://crontab.guru/">https://crontab.guru/</a>
+        <a href="https://crontab.guru/">crontab guru</a>
       </small>
     </div>
 
-    <!-- Temporal Coverage -->
-
+    <!-- Temporal Coverage: Duration -->
     <div class="form-group">
       <label for="duration">Dauer</label>
       <input
@@ -170,7 +174,8 @@
         #duration="ngModel"
       />
       <small id="Help" class="form-text text-muted">
-        Das Format der Angabe der Dauer entspricht dem ISO 8601 Format. Wie du die Dauer angibst findest du hier:
+        Das Format der Angabe der Dauer entspricht dem ISO 8601 Format. Wie du
+        die Dauer angibst findest du hier:
         <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO8601</a>
       </small>
       <!--       <span class="help-block" style="color: red; font-size: small;" *ngIf="!jobName.valid && jobName.touched"

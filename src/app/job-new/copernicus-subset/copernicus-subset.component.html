@@ -1,42 +1,119 @@
 <!-- max Cloud coverage -->
 <!-- <h6 style="color: #4d80bc;">Copernicus Subset</h6> -->
 
-<fieldset ngModelGroup="input_{{index}}">
-  <fieldset ngModelGroup="copernicusSubsetDefinition">
-    <!--Satellite-->
-    <div class="form-group">
-      <label class="my-1 mr-2" for="satellite">Satellit</label>
-      <select
-        class="form-control"
-        id="satellite"
-        style="max-width: 300px;"
-        ngModel
-        name="satellite"
-        required
-      >
-        <option selected></option>
-        <option value="sentinel-1">Sentinel-1</option>
-        <option value="sentinel-2">Sentinel-2</option>
-        <option value="sentinel-3">Sentinel-3</option>
-      </select>
-    </div>
+<fieldset ngModelGroup="input_{{ index }}">
 
-    <!--maximum Cloud Coverage-->
-    <div class="form-group">
-      <label for="cloudCoverage">maximale Wolkenbedeckung</label>
-      <input
-        style="max-width: 300px;"
-        type="number"
-        min="0"
-        max="100"
-        oninput="validity.valid||(value='');"
-        id="amount"
-        class="form-control"
-        #amountInput
-        ngModel
-        name="maxCloudCoverage"
-        required
-      />
-    </div>
-  </fieldset>
+<!--Source Type, needs to be predefined, read from configuration file-->
+  <input
+    type="hidden"
+    name="sourceType"
+    id="sourceType"
+    [(ngModel)]="sourceType"
+  />
+<!--Identifier, needs to be predefined, read from configuration file-->
+  <input
+  type="hidden"
+  name="identifier"
+  id="identifier"
+  [(ngModel)]="defaultProcessID"
+/>
+
+  <!--Satellite-->
+  <div class="form-group">
+    <label class="my-1 mr-2" for="satellite">Satellit</label>
+    <select
+      class="form-control"
+      id="satellite"
+      style="max-width: 350px;"
+      ngModel
+      name="satellite"
+      required
+    >
+      <option selected></option>
+      <option value="sentinel-1">Sentinel-1</option>
+      <option value="sentinel-2">Sentinel-2</option>
+      <!-- <option value="sentinel-3">Sentinel-3</option> -->
+    </select>
+  </div>
+
+  <!--maximum Cloud Coverage-->
+  <div class="form-group">
+    <label for="cloudCoverage">maximale Wolkenbedeckung</label>
+    <input
+      style="max-width: 350px;"
+      type="number"
+      min="0"
+      max="100"
+      oninput="validity.valid||(value='');"
+      id="cloudCoverage"
+      class="form-control"
+      placeholder="15"
+      #amountInput
+      ngModel
+      name="maximumCloudCoverage"
+      required
+    />
+  </div>
+
+  <!--instrument-->
+  <div class="form-group">
+    <label class="my-1 mr-2" for="instrument"
+      >Instrument <span style="color: gray;">optional</span></label
+    >
+    <select
+      class="form-control"
+      id="instrument"
+      style="max-width: 350px;"
+      ngModel
+      name="instrument"
+    >
+      <option selected></option>
+      <option value="SAR">SAR (Sentinel-1 Synthetic Aperture Radar)</option>
+      <option value="MSI">MSI ( Sentinel-2 MultiSpectral Instrument)</option>
+    </select>
+  </div>
+
+  <!--productType-->
+  <div class="form-group">
+    <label class="my-1 mr-2" for="productLevel"
+      >Produktlevel <span style="color: gray;">optional</span></label
+    >
+    <select
+      class="form-control"
+      id="productLevel"
+      style="max-width: 350px;"
+      ngModel
+      name="productLevel"
+    >
+      <option selected></option>
+      <option value="LEVEL0">Level 0</option>
+      <option value="LEVEL1">Level 1</option>
+      <option value="LEVEL1C">Level 1C</option>
+      <option value="LEVEL2A">Level 2A</option>
+    </select>
+  </div>
+
+  <!--productType-->
+  <div class="form-group">
+    <label class="my-1 mr-2" for="productType"
+      >Produkttyp <span style="color: gray;">optional</span></label
+    >
+    <select
+      class="form-control"
+      id="productType"
+      style="max-width: 350px;"
+      ngModel
+      name="productType"
+    >
+      <option selected></option>
+      <option value="RAW">RAW (raw data)</option>
+      <option value="GRD">GRD (Ground Range Detected)</option>
+      <option value="SLC">SLC (Single Look Complex)</option>
+      <option value="OCN">OCN (Ocean)</option>
+      <option value="L1C">L1C (Sentinel-2 Level 1C)</option>
+      <option value="L2A">L2A (Sentinel-2 Level 2A)</option>
+    </select>
+  </div>
 </fieldset>
+
+<p>{{ defaultProcessID }}</p>

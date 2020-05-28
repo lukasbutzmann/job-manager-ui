@@ -1,9 +1,10 @@
-import { AreaOfInterest } from './../modelGet/areaOfInterest.model';
+import { element } from 'protractor';
+
 import { Job } from './../modelGet/job.model';
 
 import { DataService } from './../data.service';
 import { Router } from '@angular/router';
-import { Component, OnInit, NgModule, ViewChild } from '@angular/core';
+import { Component, OnInit, NgModule, ViewChild, ElementRef, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ProcessMapping } from './../processMapping.model';
 import { HttpClient } from '@angular/common/http';
@@ -15,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class JobNewComponent implements OnInit {
   @ViewChild('f', { static: false }) signupForm: NgForm;
-
+  process: string;
 
   job: any = {
     areaOfInterest: {
@@ -91,59 +92,63 @@ export class JobNewComponent implements OnInit {
 
   // post a new job to the server
   onSubmitJob() {
-    const testJob = {
-      areaOfInterest: {extent: this.signupForm.value.extent.split`,`.map(x => + x)
+    let relevantProductCollection = '';
+    for (const item of this.processMappings) {
+      if (item.processId === this.selectedProcessingTool) {
+        relevantProductCollection = item.productCollection[0];
+      }
+    }
+
+
+    const inputArray = [];
+    for (const key in this.signupForm.value) {
+      if (this.signupForm.value.hasOwnProperty(key)) {
+        const element = this.signupForm.value[key];
+        if (key.startsWith('input_')) {
+          inputArray.push(element);
         }
+      }
+    }
+    console.log(inputArray);
+
+
+    const testJob = {
+      areaOfInterest: {
+        extent: this.signupForm.value.extent.split`,`.map(x => + x)
+      }
       ,
       created: '',
       description: this.signupForm.value.jobDescription,
       execution: {
-        event: {
-          eventType: 'SingleJobExecutionEvent'
-        },
         pattern: this.signupForm.value.pattern
       },
       id: '',
-      inputs: [
-        {
-          identifier: 'OPTICAL_IMAGES_SOURCES',
-          sourceType: 'CopernicusSubsetDefinition',
-          satellite: 'sentinel-2',
-          maximumCloudCoverage: 50
-        },
-        {
-          sourceType: 'StaticSubsetDefinition',
-          identifier: 'MASKING_DATA',
-          value: 'http://wacodis.eftas.com:8081/geoserver/wacodis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=wacodis:mask_befestigungsgrad&outputFormat=gml3',
-          dataType: 'text'
-        }
-      ],
-      lastFinishedExecution: '',
+      inputs: inputArray,
       name: this.signupForm.value.jobName,
       processingTool: this.signupForm.value.processingTool,
-      productCollection: 'sealing-factor', // this depends on the processingTool
+      productCollection: relevantProductCollection, // this depends on the processingTool How to get this from the mapping?
       retrySettings: {
         maxRetries: 5,
         retryDelay_Millies: 300000
       },
       temporalCoverage: {
-        duration: '',
+        duration: this.signupForm.value.duration,
       },
       useCase: this.signupForm.value.useCase,
     } as Job;
 
-    console.log('testjob:' + testJob);
 
     // console.log(this.signupForm);
     // console.log(this.signupForm.value.areaOfInterest.extent.split`,`.map(x => + x));
     // this.testJob.execution.pattern = this.signupForm.value.execution.pattern;
     console.log(testJob);
+    console.log(this.process);
     // console.log(this.signupForm.value.areaOfInterest.extent.split`,`.map(x => + x));
     this.dataService.storeData(testJob)
       .subscribe(responseData => {
-    console.log(responseData);
-    // this.router.navigate(['/']);
-    });
+        console.log(responseData);
+        this.router.navigate(['/']);
+      });
   }
 
   // post a new job in a form  to the server
