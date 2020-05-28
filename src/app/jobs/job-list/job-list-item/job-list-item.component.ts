@@ -1,8 +1,9 @@
 import { Subject } from 'rxjs';
 import { DataService } from './../../../data.service';
 import { Job } from '../../../modelGet/job.model';
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-job-list-item',
@@ -12,6 +13,9 @@ import { Router } from '@angular/router';
 })
 export class JobListItemComponent implements OnInit {
   @Input() job: Job;
+
+  jobs: Job[] = [];
+
   // create Subject for ID and you subscribe to this subject in the job list component
 
   public isCollapsed = true;
@@ -33,8 +37,17 @@ export class JobListItemComponent implements OnInit {
     this.dataService.deleteData(this.job.id)
     .subscribe(() => {
       console.log('id of deleted job: ' + this.job.id);
-      // this.router.navigate(['/']);
+
+
     });
   }
 
+/*   onDelete(){
+    this.id.emit(this.job.id);
+    console.log(this.job.id);
+    this.dataService.getData()
+    .subscribe((jobs) => {
+      this.jobs = jobs.data;
+    });
+  } */
 }

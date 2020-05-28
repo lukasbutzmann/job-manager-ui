@@ -1,41 +1,42 @@
 <!-- max Cloud coverage -->
 <!-- <h6 style="color: #4d80bc;">Copernicus Subset</h6> -->
 
+<fieldset ngModelGroup="input_{{index}}">
+  <fieldset ngModelGroup="copernicusSubsetDefinition">
+    <!--Satellite-->
+    <div class="form-group">
+      <label class="my-1 mr-2" for="satellite">Satellit</label>
+      <select
+        class="form-control"
+        id="satellite"
+        style="max-width: 300px;"
+        ngModel
+        name="satellite"
+        required
+      >
+        <option selected></option>
+        <option value="sentinel-1">Sentinel-1</option>
+        <option value="sentinel-2">Sentinel-2</option>
+        <option value="sentinel-3">Sentinel-3</option>
+      </select>
+    </div>
 
-<fieldset ngModelGroup="copernicusSubsetDefinition_{{index}}">
-  <!--Satellite-->
-  <div class="form-group">
-    <label class="my-1 mr-2" for="satellite">Satellit</label>
-    <select
-      class="form-control"
-      id="satellite"
-      style="max-width: 300px;"
-      ngModel
-      name="satellite"
-      required
-    >
-      <option selected></option>
-      <option value="sentinel-1">Sentinel-1</option>
-      <option value="sentinel-2">Sentinel-2</option>
-      <option value="sentinel-3">Sentinel-3</option>
-    </select>
-  </div>
-
-  <!--maximum Cloud Coverage-->
-  <div class="form-group">
-    <label for="cloudCoverage">maximale Wolkenbedeckung</label>
-    <input
-      style="max-width: 300px;"
-      type="number"
-      min="0"
-      max="100"
-      oninput="validity.valid||(value='');"
-      id="amount"
-      class="form-control"
-      #amountInput
-      ngModel
-      name="maxCloudCoverage"
-      required
-    />
-  </div>
+    <!--maximum Cloud Coverage-->
+    <div class="form-group">
+      <label for="cloudCoverage">maximale Wolkenbedeckung</label>
+      <input
+        style="max-width: 300px;"
+        type="number"
+        min="0"
+        max="100"
+        oninput="validity.valid||(value='');"
+        id="amount"
+        class="form-control"
+        #amountInput
+        ngModel
+        name="maxCloudCoverage"
+        required
+      />
+    </div>
+  </fieldset>
 </fieldset>

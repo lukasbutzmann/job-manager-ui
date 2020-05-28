@@ -1,3 +1,5 @@
+import { AreaOfInterest } from './../modelGet/areaOfInterest.model';
+import { Job } from './../modelGet/job.model';
 
 import { DataService } from './../data.service';
 import { Router } from '@angular/router';
@@ -14,13 +16,11 @@ import { HttpClient } from '@angular/common/http';
 export class JobNewComponent implements OnInit {
   @ViewChild('f', { static: false }) signupForm: NgForm;
 
+
   job: any = {
     areaOfInterest: {
       extent: [
-        6.9315,
-        50.9854,
-        7.6071,
-        51.319
+        6.9315, 50.9854, 7.6071, 51.319
       ]
     },
     created: '',
@@ -62,7 +62,7 @@ export class JobNewComponent implements OnInit {
     },
     useCase: ''
   };
-  // job: JobPost;
+
 
   // initialize the process mapping
   processMappings: ProcessMapping[] = [];
@@ -70,7 +70,9 @@ export class JobNewComponent implements OnInit {
   // set selected Processing Tool
   selectedProcessingTool = '';
 
-  constructor(private router: Router, private dataService: DataService, private http: HttpClient) { }
+  constructor(private router: Router, private dataService: DataService, private http: HttpClient) {
+
+  }
 
   ngOnInit() {
 
@@ -81,7 +83,6 @@ export class JobNewComponent implements OnInit {
 
   }
 
-
   // submit form object and print it in console
   /*     onSubmitJob(form: NgForm) {
          console.log('submitted', form);
@@ -90,25 +91,68 @@ export class JobNewComponent implements OnInit {
 
   // post a new job to the server
   onSubmitJob() {
-    // console.log(this.signupForm);
-    this.dataService.storeData(this.job)
-      .subscribe(responseData => {
-        console.log(responseData);
-        this.router.navigate(['/']);
-      });
+    const testJob = {
+      areaOfInterest: {extent: this.signupForm.value.extent.split`,`.map(x => + x)
+        }
+      ,
+      created: '',
+      description: this.signupForm.value.jobDescription,
+      execution: {
+        event: {
+          eventType: 'SingleJobExecutionEvent'
+        },
+        pattern: this.signupForm.value.pattern
+      },
+      id: '',
+      inputs: [
+        {
+          identifier: 'OPTICAL_IMAGES_SOURCES',
+          sourceType: 'CopernicusSubsetDefinition',
+          satellite: 'sentinel-2',
+          maximumCloudCoverage: 50
+        },
+        {
+          sourceType: 'StaticSubsetDefinition',
+          identifier: 'MASKING_DATA',
+          value: 'http://wacodis.eftas.com:8081/geoserver/wacodis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=wacodis:mask_befestigungsgrad&outputFormat=gml3',
+          dataType: 'text'
+        }
+      ],
+      lastFinishedExecution: '',
+      name: this.signupForm.value.jobName,
+      processingTool: this.signupForm.value.processingTool,
+      productCollection: 'sealing-factor', // this depends on the processingTool
+      retrySettings: {
+        maxRetries: 5,
+        retryDelay_Millies: 300000
+      },
+      temporalCoverage: {
+        duration: '',
+      },
+      useCase: this.signupForm.value.useCase,
+    } as Job;
 
-    // this.dataService.storeData(this.job).subscribe();
+    console.log('testjob:' + testJob);
+
+    // console.log(this.signupForm);
+    // console.log(this.signupForm.value.areaOfInterest.extent.split`,`.map(x => + x));
+    // this.testJob.execution.pattern = this.signupForm.value.execution.pattern;
+    console.log(testJob);
+    // console.log(this.signupForm.value.areaOfInterest.extent.split`,`.map(x => + x));
+    this.dataService.storeData(testJob)
+      .subscribe(responseData => {
+    console.log(responseData);
     // this.router.navigate(['/']);
-    // console.log(this.processMappings[0].inputs);
+    });
   }
 
-    // post a new job in a form  to the server
-/*     onSubmitJob(form: NgForm) {
-      this.dataService.storeData(form)
-        .subscribe(responseData => {
-          console.log(responseData);
-        });
-    } */
+  // post a new job in a form  to the server
+  /*     onSubmitJob(form: NgForm) {
+        this.dataService.storeData(form)
+          .subscribe(responseData => {
+            console.log(responseData);
+          });
+      } */
 
 
 }

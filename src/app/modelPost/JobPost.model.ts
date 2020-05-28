@@ -7,7 +7,7 @@ import { AreaOfInterest } from './../modelGet/areaOfInterest.model';
 export interface JobPost {
   areaOfInterest: AreaOfInterest;
   id: string;
-  // created: string;
+  created: string;
   description?: string;
   execution: Execution;
   inputs: Input[];

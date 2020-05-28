@@ -14,13 +14,11 @@ import { Subject } from 'rxjs';
 export class DataService {
   jobSelected = new EventEmitter<Job>();
   jobs: Job[] = [];
-
-
   jobsChanged = new Subject<Job[]>();
+  emitID = new EventEmitter<string>();
+
 
   constructor(private http: HttpClient) { }
-
-
 
   // Fetch jobs from server
   getData() {
@@ -44,6 +42,9 @@ export class DataService {
     return this.http.delete(`http://localhost:8080/jobDefinitions/${id}`);
   }
 
+  onDeleteEmit(id: string){
+    this.emitID.emit(id);
+  }
 
 }
 

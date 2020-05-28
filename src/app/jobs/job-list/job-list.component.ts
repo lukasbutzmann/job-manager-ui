@@ -4,7 +4,7 @@
 import { Job } from '../../modelGet/job.model';
 import { Page } from '../../modelGet/page.model';
 import { DataService } from './../../data.service';
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, Input } from '@angular/core';
 
 
 

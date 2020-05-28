@@ -10,7 +10,6 @@ export interface Job {
   description: string;
   execution: Execution;
   id: string;
-  // inputs: (Input | StaticSubsetDefinition | CopernicusSubsetDefinition)[]; // any[] TODO: How to resolve this? Two different objects in an array --> define subclasses? But how?
   inputs: Input[];
   lastFinishedExecution: string;
   name: string;
