@@ -37,8 +37,6 @@ export class JobListItemComponent implements OnInit {
     this.dataService.deleteData(this.job.id)
     .subscribe(() => {
       console.log('id of deleted job: ' + this.job.id);
-
-
     });
   }
 

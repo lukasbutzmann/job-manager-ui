@@ -31,7 +31,7 @@ export class DataService {
 
   // Post a job
   storeData(job: any) {
-    const job1 = job;
+    const job1 = job; // TODO: Change variable name
     return this.http.post('http://localhost:8080/jobDefinitions', job1);
   }
 
@@ -42,9 +42,6 @@ export class DataService {
     return this.http.delete(`http://localhost:8080/jobDefinitions/${id}`);
   }
 
-  onDeleteEmit(id: string){
-    this.emitID.emit(id);
-  }
 
 }
 

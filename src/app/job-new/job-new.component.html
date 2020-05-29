@@ -2,7 +2,6 @@
   <br />
   <h2 align="center">Job anlegen</h2>
   <form (ngSubmit)="onSubmitJob()" #f="ngForm">
-    <!-- <form (ngSubmit)="onSubmitJob(f)" #f="ngForm"> This here takes the form object and sends it to the server -->
     <!-- Job name -->
     <div class="form-group">
       <label for="inputName">Jobname</label>
@@ -20,7 +19,6 @@
         >Bitte gib einen Jobnamen an</span
       > -->
     </div>
-
     <!-- Coordinates -->
     <div class="form-group">
       <label for="observationExtent">Koordinaten des Observationsgebiets</label>
@@ -39,10 +37,9 @@
         Latitude
       </small>
     </div>
-
     <!--Processing tool-->
     <div class="form-group">
-      <label class="my-1 mr-2" for="tool">Werkzeug</label>
+      <label class="my-1 mr-2" for="tool">Produkt</label>
       <select
         class="form-control"
         id="formCustomSelectPref"
@@ -59,9 +56,7 @@
         >
       </select>
     </div>
-
-    <!--Show selected processing tool-->
-    <!-- <p>{{selectedProcessingTool}}</p> -->
+    <!-- Data subsets ; dynamically set as depending on the choice of the Processing tool -->
     <div class="form-group">
       <div *ngFor="let process of processMappings">
         <div *ngIf="process.processId === selectedProcessingTool">
@@ -96,7 +91,6 @@
       </div>
     </div>
     <br />
-
     <!-- Job description-->
     <div class="form-group">
       <label for="jobDescription"
@@ -111,7 +105,6 @@
         name="jobDescription"
       ></textarea>
     </div>
-
     <!-- Use case-->
     <div class="form-group">
       <label for="useCase"
@@ -127,14 +120,9 @@
       ></textarea>
     </div>
 
-    <!-- Map -->
-    <!-- <div class="form-group">
-        <label for="leafletmap"
-        > ... selektiere das Observationsgebiet</label>
-        <app-leaflet-map></app-leaflet-map>
-      </div> -->
+    <!--TODO Explain both input fields-->
 
-    <!--Ausführungsintervall (as cronjob)-->
+    <!--Cronjob-->
     <br />
     <br />
     <h4 style="color: #4d80bd;">Diesen Job planen</h4>
@@ -160,10 +148,9 @@
         <a href="https://crontab.guru/">crontab guru</a>
       </small>
     </div>
-
     <!-- Temporal Coverage: Duration -->
     <div class="form-group">
-      <label for="duration">Dauer</label>
+      <label for="duration">Zeitabdeckung</label>
       <input
         style="max-width: 350px;"
         class="form-control"
@@ -183,10 +170,11 @@
           > -->
     </div>
 
-    <br />
-    <br />
+
 
     <!--Submit button-->
+    <br />
+    <br />
     <button
       type="button submit"
       class="btn btn-primary"
@@ -201,3 +189,14 @@
 
 <!--Show form object as json -->
 <pre>{{ f.value | json }}</pre>
+
+
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+    <!-- Map -->
+    <!-- <div class="form-group">
+        <label for="leafletmap"
+        > ... selektiere das Observationsgebiet</label>
+        <app-leaflet-map></app-leaflet-map>
+      </div> -->

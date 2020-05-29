@@ -1,8 +1,5 @@
 // import { Job } from './../../modelGet/job.model';
-
-
 import { Job } from '../../modelGet/job.model';
-import { Page } from '../../modelGet/page.model';
 import { DataService } from './../../data.service';
 import { Component, OnInit, Output, Input } from '@angular/core';
 
@@ -26,7 +23,5 @@ export class JobListComponent implements OnInit {
       .subscribe((jobs) => {
         this.jobs = jobs.data;
       });
-
   }
-
 }
