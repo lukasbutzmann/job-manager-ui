@@ -11,6 +11,8 @@ export class CopernicusSubsetComponent implements OnInit {
   @Input() index: number;
   sourceType = 'CopernicusSubsetDefinition';
   @Input() defaultProcessID: string;
+  satellite = '';
+  productType: string;
 
   constructor() { }
 
