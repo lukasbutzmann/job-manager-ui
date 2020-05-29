@@ -63,7 +63,6 @@
           <p style="color: red;">Definiere die Eingabedaten</p>
           <div *ngFor="let input of process.inputs; let i = index">
             <ngb-accordion
-              [closeOthers]="true"
               #acc="ngbAccordion"
               activeIds="ngb-panel-0"
             >
