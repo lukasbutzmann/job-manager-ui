@@ -92,6 +92,8 @@ export class JobNewComponent implements OnInit {
 
   // post a new job to the server
   onSubmitJob() {
+
+
     let relevantProductCollection = '';
     for (const item of this.processMappings) {
       if (item.processId === this.selectedProcessingTool) {
@@ -114,9 +116,8 @@ export class JobNewComponent implements OnInit {
 
     const testJob = {
       areaOfInterest: {
-        extent: this.signupForm.value.extent.split`,`.map(x => + x)
-      }
-      ,
+        extent: this.signupForm.value.extent.split(',').map(Number)
+      },
       created: '',
       description: this.signupForm.value.jobDescription,
       execution: {
@@ -126,7 +127,9 @@ export class JobNewComponent implements OnInit {
       inputs: inputArray,
       name: this.signupForm.value.jobName,
       processingTool: this.signupForm.value.processingTool,
-      productCollection: relevantProductCollection, // this depends on the processingTool How to get this from the mapping?
+
+      // productCollection depends on the choice of the processingTool
+      productCollection: relevantProductCollection,
       retrySettings: {
         maxRetries: 5,
         retryDelay_Millies: 300000
@@ -137,27 +140,13 @@ export class JobNewComponent implements OnInit {
       useCase: this.signupForm.value.useCase,
     } as Job;
 
-
-    // console.log(this.signupForm);
-    // console.log(this.signupForm.value.areaOfInterest.extent.split`,`.map(x => + x));
-    // this.testJob.execution.pattern = this.signupForm.value.execution.pattern;
     console.log(testJob);
-    console.log(this.process);
-    // console.log(this.signupForm.value.areaOfInterest.extent.split`,`.map(x => + x));
+
     this.dataService.storeData(testJob)
       .subscribe(responseData => {
         console.log(responseData);
         this.router.navigate(['/']);
       });
   }
-
-  // post a new job in a form  to the server
-  /*     onSubmitJob(form: NgForm) {
-        this.dataService.storeData(form)
-          .subscribe(responseData => {
-            console.log(responseData);
-          });
-      } */
-
 
 }
