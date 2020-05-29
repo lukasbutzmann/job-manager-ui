@@ -38,8 +38,8 @@
 
   <!--maximum Cloud Coverage -->
   <!--TODO Only If sentinel-2 -->
-  <div *ngIf="satellite === 'sentinel-2'" class="form-group">
-    <label for="cloudCoverage">maximale Wolkenbedeckung</label>
+  <div  class="form-group"> <!--*ngIf="satellite === 'sentinel-2'"-->
+    <label for="cloudCoverage">maximale Wolkenbedeckung in % </label>
     <input
       style="max-width: 350px;"
       type="number"
@@ -48,7 +48,7 @@
       oninput="validity.valid||(value='');"
       id="cloudCoverage"
       class="form-control"
-      placeholder="15"
+      placeholder=" z.B. 15"
       #amountInput
       ngModel
       name="maximumCloudCoverage"

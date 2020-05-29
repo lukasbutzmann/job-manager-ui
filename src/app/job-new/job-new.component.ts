@@ -22,6 +22,8 @@ export class JobNewComponent implements OnInit {
   // selectedProcessingTool is set in the for loop in the template
   selectedProcessingTool = '';
 
+
+
   constructor(
     private router: Router,
     private dataService: DataService,
@@ -58,8 +60,8 @@ export class JobNewComponent implements OnInit {
       processingTool: this.signupForm.value.processingTool,
       productCollection: relevantProductCollection,
       retrySettings: {
-        maxRetries: 5,
-        retryDelay_Millies: 300000
+        maxRetries: 0,
+        retryDelay_Millies: 0
       },
       temporalCoverage: {
         duration: this.signupForm.value.duration,

@@ -4,7 +4,7 @@
   <form (ngSubmit)="onSubmitJob()" #f="ngForm">
     <!-- Job name -->
     <div class="form-group">
-      <label for="inputName">Jobname</label>
+      <label for="jobname">Jobname</label>
       <input
         style="max-width: 350px;"
         class="form-control"
@@ -25,7 +25,7 @@
       <input
         style="max-width: 350px;"
         class="form-control"
-        id="inputName"
+        id="extent"
         placeholder=" z.B.  7.1179, 51.2407, 7.2527, 51.2884"
         ngModel
         name="extent"
@@ -34,7 +34,7 @@
       />
       <small id="Help" class="form-text text-muted"
         >Eingabereihenfolge: min Longitude, min Latitude, max Longitude, max
-        Latitude
+        Latitude. Du hast keine Koordinaten? Schau zum Beispiel hier: <a href="https://www.openstreetmap.org/export#map=14/51.2659/7.1893"> OpenStreetMap</a>
       </small>
     </div>
     <!--Processing tool-->
@@ -188,6 +188,7 @@
 
 <!--Show form object as json -->
 <pre>{{ f.value | json }}</pre>
+
 
 
 
