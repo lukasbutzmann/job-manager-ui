@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import { DataService } from './../../../data.service';
+import { DataService } from '../../../services/data.service';
 import { Job } from '../../../modelGet/job.model';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
@@ -14,36 +14,17 @@ import { Router } from '@angular/router';
 export class JobListItemComponent implements OnInit {
   @Input() job: Job;
   @Output() idDelete: EventEmitter<string> = new EventEmitter();
-
-
-
-  // jobs: Job[] = [];
-
-  // create Subject for ID and you subscribe to this subject in the job list component
-
   public isCollapsed = true;
 
-  constructor(private dataService: DataService, private router: Router) {
-  }
+  constructor() { }
+  ngOnInit() { }
 
-  ngOnInit() {
-  }
-
+  // When clicked on 'Details' the information is toggled
   onSelected() {
     this.isCollapsed = !this.isCollapsed;
-    // this.dataService.jobSelected.emit(this.job);
   }
 
-  // delete method which is executed when Delete button of an item is clicked
-  // this should also set fire the Subject JobID, so that the job list receives the ID
-  /*   onDelete(){
-      this.dataService.deleteData(this.job.id)
-      .subscribe(() => {
-        console.log('id of deleted job: ' + this.job.id);
-      });
-    } */
-
-    // Emit ID of the job when its delete button is clicked
+  // Emit ID of the job when its delete button is clicked
   onDelete() {
     this.idDelete.emit(this.job.id);
   }

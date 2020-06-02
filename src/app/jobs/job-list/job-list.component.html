@@ -4,10 +4,17 @@
   </div> -->
   <div class="container">
     <app-job-list-item
-      *ngFor= "let jobElement of jobs"
-      [job] = "jobElement"
-      (idDelete) = "onDelete($event)"
-      >
+      *ngFor="let jobElement of jobs"
+      [job]="jobElement"
+      (idDelete)="onDelete($event)"
+    >
     </app-job-list-item>
+  </div>
+  <div class="alert alert-danger" *ngIf="error">
+    <h2>Ein Fehler ist aufgetreten</h2>
+    <p>Status: {{ errorStatus }}</p>
+    <p>Hier kannst du nachsehen, was dieser Code bedeutet:
+      <a href="https://de.ryte.com/wiki/HTTP_Status_Code">Codeerklärungen</a>
+    </p>
   </div>
 </div>

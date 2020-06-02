@@ -1,6 +1,6 @@
 // import { Job } from './../../modelGet/job.model';
 import { Job } from '../../modelGet/job.model';
-import { DataService } from './../../data.service';
+import { DataService } from '../../services/data.service';
 import { Component, OnInit, Output, Input } from '@angular/core';
 
 
@@ -12,6 +12,8 @@ import { Component, OnInit, Output, Input } from '@angular/core';
 })
 export class JobListComponent implements OnInit {
   jobs: Job[] = [];
+  error: null;
+  errorStatus: null;
 
   constructor(private dataService: DataService) { }
 
@@ -21,6 +23,11 @@ export class JobListComponent implements OnInit {
     this.dataService.getData()
       .subscribe((jobs) => {
         this.jobs = jobs.data;
+        console.log('ok');
+      }, error => {
+        this.error = error;
+        this.errorStatus = error.status;
+        console.log(error);
       });
   }
 
