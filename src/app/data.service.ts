@@ -20,7 +20,7 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  // Fetch jobs from server
+  // Fetch all jobs from server
   getData() {
     return this.http.
       get<Page<Job>>(
@@ -30,18 +30,17 @@ export class DataService {
 
 
   // Post a job
-  storeData(job: any) {
-    const job1 = job; // TODO: Change variable name
-    return this.http.post('http://localhost:8080/jobDefinitions', job1);
+  storeData(jobToPost: any) {
+    const job = jobToPost;
+    return this.http.
+      post('http://localhost:8080/jobDefinitions', job);
   }
 
   // Delete selected job
-  /* TODO This doesn't update the page yet. Probably the delete function should be implemented in the list component, so that after
-  the job with the certain ID can be refreshed */
   deleteData(id: string) {
-    return this.http.delete(`http://localhost:8080/jobDefinitions/${id}`);
+    return this.http.
+      delete(`http://localhost:8080/jobDefinitions/${id}`);
   }
-
 
 }
 

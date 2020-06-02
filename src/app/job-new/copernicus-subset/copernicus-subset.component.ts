@@ -9,13 +9,13 @@ import { ControlContainer, NgForm } from '@angular/forms';
 })
 export class CopernicusSubsetComponent implements OnInit {
   @Input() index: number;
-  sourceType = 'CopernicusSubsetDefinition';
   @Input() defaultProcessID: string;
+
+  sourceType = 'CopernicusSubsetDefinition';
   satellite = '';
   productType: string;
 
   constructor() { }
-
   ngOnInit(): void {
   }
 

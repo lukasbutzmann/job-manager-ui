@@ -5,7 +5,9 @@
   <div class="container">
     <app-job-list-item
       *ngFor= "let jobElement of jobs"
-      [job] = "jobElement">
+      [job] = "jobElement"
+      (idDelete) = "onDelete($event)"
+      >
     </app-job-list-item>
   </div>
 </div>
