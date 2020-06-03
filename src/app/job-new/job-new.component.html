@@ -1,7 +1,7 @@
 <div class="container" style="margin-top: 20px;">
   <br />
   <h2 align="center">Job anlegen</h2>
-  <form (ngSubmit)="onSubmitJob1(f)" #f="ngForm">
+  <form (ngSubmit)="onSubmitJob()" #f="ngForm">
     <!-- Job name -->
     <div class="form-group">
       <label
@@ -11,10 +11,7 @@
         >Jobname
       </label>
       <ng-template #blackJobName>
-        <label
-        for="jobName">Jobname
-
-        </label>
+        <label for="jobName">Jobname </label>
       </ng-template>
       <input
         style="max-width: 350px;"
@@ -46,7 +43,7 @@
         <label for="extent">Koordinaten des Observationsgebiets</label>
       </ng-template>
       <br />
-<!--       <span
+      <!--       <span
         class="help-block"
         style="color: red; font-size: small;"
         *ngIf="!extent.valid && extent.touched"

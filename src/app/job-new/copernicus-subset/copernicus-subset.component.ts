@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild  } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 
 @Component({
@@ -12,7 +12,7 @@ export class CopernicusSubsetComponent implements OnInit {
   @Input() defaultProcessID: string;
 
   sourceType = 'CopernicusSubsetDefinition';
-  satellite = '';
+  selectedSatellite = '';
   productType: string;
 
   constructor() { }

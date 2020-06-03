@@ -2,32 +2,40 @@
 <!-- <h6 style="color: #4d80bc;">Copernicus Subset</h6> -->
 
 <fieldset ngModelGroup="input_{{ index }}">
-
-<!--Source Type, needs to be predefined, read from configuration file-->
+  <!--Source Type, needs to be predefined, read from configuration file-->
   <input
     type="hidden"
     name="sourceType"
     id="sourceType"
     [(ngModel)]="sourceType"
   />
-<!--Identifier, needs to be predefined, read from configuration file-->
+  <!--Identifier, needs to be predefined, read from configuration file-->
   <input
-  type="hidden"
-  name="identifier"
-  id="identifier"
-  [(ngModel)]="defaultProcessID"
-/>
+    type="hidden"
+    name="identifier"
+    id="identifier"
+    [(ngModel)]="defaultProcessID"
+  />
 
   <!--Satellite-->
   <div class="form-group">
-    <label class="my-1 mr-2" for="satellite">Satellit</label>
+    <label
+      *ngIf="!satellite.valid; else blackSatellite"
+      for="satellite"
+      style="color: red;"
+      >Satellit
+    </label>
+    <ng-template #blackSatellite>
+      <label for="satellite">Satellit </label>
+    </ng-template>
     <select
+      style="max-width: 350px;"
       class="form-control"
       id="satellite"
-      style="max-width: 350px;"
-      [(ngModel)]= "satellite"
+      [(ngModel)]="selectedSatellite"
       name="satellite"
       required
+      #satellite="ngModel"
     >
       <option selected></option>
       <option value="sentinel-1">Sentinel-1</option>
@@ -38,8 +46,18 @@
 
   <!--maximum Cloud Coverage -->
   <!--TODO Only If sentinel-2 -->
-  <div  class="form-group"> <!--*ngIf="satellite === 'sentinel-2'"-->
-    <label for="cloudCoverage">maximale Wolkenbedeckung in % </label>
+
+  <label
+    *ngIf="!cloudCoverage.valid; else blackCloudCoverage"
+    for="cloudCoverage"
+    style="color: red;"
+    >maximale Wolkenbedeckung in %
+  </label>
+  <div class="form-group">
+    <ng-template #blackCloudCoverage>
+      <label for="cloudCoverage">maximale Wolkenbedeckung in % </label>
+    </ng-template>
+
     <input
       style="max-width: 350px;"
       type="number"
@@ -49,15 +67,15 @@
       id="cloudCoverage"
       class="form-control"
       placeholder=" z.B. 15"
-      #amountInput
       ngModel
       name="maximumCloudCoverage"
       required
+      #cloudCoverage ="ngModel"
     />
   </div>
 
   <!--instrument-->
-<!--   <div class="form-group">
+  <!--   <div class="form-group">
     <label class="my-1 mr-2" for="instrument"
       >Instrument <span style="color: gray;">optional</span></label
     >
@@ -75,7 +93,7 @@
   </div> -->
 
   <!--productType-->
-<!--   <div class="form-group">
+  <!--   <div class="form-group">
     <label class="my-1 mr-2" for="productLevel"
       >Produktlevel <span style="color: gray;">optional</span></label
     >
@@ -94,8 +112,8 @@
     </select>
   </div> -->
 
-  <!--productType-->
-  <div *ngIf="satellite !== ''" class="form-group">
+  <!--Product Type-->
+  <div *ngIf="selectedSatellite !== ''" class="form-group">
     <label class="my-1 mr-2" for="productType"
       >Produkttyp <span style="color: gray;">optional</span></label
     >
@@ -107,38 +125,47 @@
       name="productType"
     >
       <option selected></option>
-      <option *ngIf="satellite === 'sentinel-1'" value="RAW">Level 0 RAW (Raw data)</option>
-      <option *ngIf="satellite === 'sentinel-1'" value="GRD">Level 1 GRD (Ground Range Detected)</option>
-      <option *ngIf="satellite === 'sentinel-1'" value="SLC">Level 1 SLC (Single Look Complex)</option>
-      <option *ngIf="satellite === 'sentinel-1'" value="OCN">Level 2 OCN (Ocean)</option>
-      <option *ngIf="satellite === 'sentinel-2'" value="L1C">L1C (Sentinel-2 Level 1C)</option>
-      <option *ngIf="satellite === 'sentinel-2'" value="L2A">L2A (Sentinel-2 Level 2A)</option>
+      <option *ngIf="selectedSatellite === 'sentinel-1'" value="RAW"
+        >Level 0 RAW (Raw data)</option
+      >
+      <option *ngIf="selectedSatellite === 'sentinel-1'" value="GRD"
+        >Level 1 GRD (Ground Range Detected)</option
+      >
+      <option *ngIf="selectedSatellite === 'sentinel-1'" value="SLC"
+        >Level 1 SLC (Single Look Complex)</option
+      >
+      <option *ngIf="selectedSatellite === 'sentinel-1'" value="OCN"
+        >Level 2 OCN (Ocean)</option
+      >
+      <option *ngIf="selectedSatellite === 'sentinel-2'" value="L1C"
+        >L1C (Sentinel-2 Level 1C)</option
+      >
+      <option *ngIf="selectedSatellite === 'sentinel-2'" value="L2A"
+        >L2A (Sentinel-2 Level 2A)</option
+      >
     </select>
   </div>
 
-    <!--Sensor Mode-->
-    <div *ngIf="satellite !== ''" class="form-group">
-      <label class="my-1 mr-2" for="productType"
-        >Sensor Mode <span style="color: gray;">optional</span></label
-      >
-      <select
-        class="form-control"
-        id="sensorMode"
-        style="max-width: 350px;"
-        ngModel
-        name="sensorMode"
-      >
-        <option selected></option>
-        <option value="EW">EW (Extra Wide)</option>
-        <option value="IW">IW (Interferometric Wide)</option>
-        <option value="SM">SM (Stripmap)</option>
-        <option *ngIf="productType ==='OCN' " value="WV">WV (Wave)</option>
-      </select>
-    </div>
-
-
+  <!--Sensor Mode-->
+  <div *ngIf="selectedSatellite !== ''" class="form-group">
+    <label class="my-1 mr-2" for="productType"
+      >Sensor Mode <span style="color: gray;">optional</span></label
+    >
+    <select
+      class="form-control"
+      id="sensorMode"
+      style="max-width: 350px;"
+      ngModel
+      name="sensorMode"
+    >
+      <option selected></option>
+      <option value="EW">EW (Extra Wide)</option>
+      <option value="IW">IW (Interferometric Wide)</option>
+      <option value="SM">SM (Stripmap)</option>
+      <option *ngIf="productType === 'OCN'" value="WV">WV (Wave)</option>
+    </select>
+  </div>
 </fieldset>
 
-
-<p>{{satellite}}</p>
+<p>{{ selectedSatellite }}</p>
 <p>{{ defaultProcessID }}</p>
