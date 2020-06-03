@@ -9,18 +9,38 @@
   />
 
   <input
-  type="hidden"
-  name="sourceType"
-  id="sourceType"
-  [(ngModel)]="sourceType"
-/>
+    type="hidden"
+    name="sourceType"
+    id="sourceType"
+    [(ngModel)]="sourceType"
+  />
 
-<!---->
+  <!--Value-->
   <div class="form-group">
-    <label *ngIf="defaultProcessID=='REFERENCE_DATA'" for="value">Layer</label>
-    <label *ngIf="defaultProcessID=='AREA_OF_INTEREST'" for="value">Koordinaten des Observationsgebiet</label>
-    <label *ngIf="defaultProcessID=='MASKING_DATA'" for="value">Layer zum Maskieren</label>
-
+    <span *ngIf="!value.valid; else blackValue" for="value" style="color: red;">
+      <label *ngIf="defaultProcessID == 'REFERENCE_DATA'" for="value"
+        >Layer</label
+      >
+      <label *ngIf="defaultProcessID == 'AREA_OF_INTEREST'" for="value"
+        >Koordinaten des Observationsgebiet</label
+      >
+      <label *ngIf="defaultProcessID == 'MASKING_DATA'" for="value"
+        >Layer zum Maskieren</label
+      >
+    </span>
+    <ng-template #blackValue>
+      <span>
+        <label *ngIf="defaultProcessID == 'REFERENCE_DATA'" for="value"
+          >Layer</label
+        >
+        <label *ngIf="defaultProcessID == 'AREA_OF_INTEREST'" for="value"
+          >Koordinaten des Observationsgebiet</label
+        >
+        <label *ngIf="defaultProcessID == 'MASKING_DATA'" for="value"
+          >Layer zum Maskieren</label
+        >
+      </span>
+    </ng-template>
     <input
       style="max-width: 300px;"
       class="form-control"
@@ -29,20 +49,36 @@
       ngModel
       name="value"
       required
+      #value="ngModel"
     />
-    <small *ngIf="defaultProcessID=='REFERENCE_DATA'"  id="Help" class="form-text text-muted">
+    <small
+      *ngIf="defaultProcessID == 'REFERENCE_DATA'"
+      id="Help"
+      class="form-text text-muted"
+    >
       Gib hier die URL eines Vektorlayer eines WFS (Web Feature Service) ein
     </small>
-    <small *ngIf="defaultProcessID=='AREA_OF_INTEREST'" id="Help" class="form-text text-muted">
-      Eingabereihenfolge: min Longitude, min Latitude, max Longitude, max Latitude.
+    <small
+      *ngIf="defaultProcessID == 'AREA_OF_INTEREST'"
+      id="Help"
+      class="form-text text-muted"
+    >
+      Eingabereihenfolge: min Longitude, min Latitude, max Longitude, max
+      Latitude.
     </small>
-
-
   </div>
 
-  <!---->
+  <!--Data type-->
   <div class="form-group">
-    <label class="my-1 mr-2" for="dataType">Datentyp</label>
+    <label
+        *ngIf="!dataType.valid; else blackDataType"
+        for="dataType"
+        style="color: red;"
+        >Datentyp
+      </label>
+      <ng-template #blackDataType>
+        <label for="dataType">Datentyp</label>
+      </ng-template>
     <select
       class="form-control"
       id="dataType"
@@ -50,6 +86,7 @@
       ngModel
       name="dataType"
       required
+      #dataType="ngModel"
     >
       <option selected></option>
       <option value="text">Text</option>
