@@ -11,6 +11,7 @@ export class StaticSubsetComponent implements OnInit {
   @Input() index: number;
   @Input() defaultProcessID: string;
   sourceType = 'StaticSubsetDefinition';
+  dataType = 'text';
 
 
   constructor() { }

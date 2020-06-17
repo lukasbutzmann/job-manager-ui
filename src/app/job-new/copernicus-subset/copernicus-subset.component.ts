@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild  } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 
 @Component({
@@ -10,13 +10,26 @@ import { ControlContainer, NgForm } from '@angular/forms';
 export class CopernicusSubsetComponent implements OnInit {
   @Input() index: number;
   @Input() defaultProcessID: string;
+  selectedSatellite = '';
+  @Output() selectedSatelliteEmit: EventEmitter<string> = new EventEmitter();
+  @Output() selectedCloudCoverageEmit: EventEmitter<number> = new EventEmitter();
 
   sourceType = 'CopernicusSubsetDefinition';
-  selectedSatellite = '';
+
   productType: string;
 
   constructor() { }
   ngOnInit(): void {
+  }
+
+  updateSelectedSatellite(event: any){
+    // console.log(event);
+    this.selectedSatelliteEmit.emit(event);
+  }
+
+  updateCloudCoverage(event: any){
+    // console.log(event);
+    this.selectedCloudCoverageEmit.emit(event);
   }
 
 }

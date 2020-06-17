@@ -15,17 +15,26 @@
     [(ngModel)]="sourceType"
   />
 
+  <!--dataType is set to 'text' per default -->
+  <input
+    type="hidden"
+    name="dataType"
+    id="dataType"
+    [(ngModel)]="dataType"
+    />
+
   <!--Value-->
   <div class="form-group">
-    <span *ngIf="!value.valid; else blackValue" for="value" style="color: red;">
+    <span *ngIf="!value.valid; else blackValue" for="value">
       <label *ngIf="defaultProcessID == 'REFERENCE_DATA'" for="value"
-        >Layer</label
+        >Layer <span style="color: red;">*</span></label
       >
       <label *ngIf="defaultProcessID == 'AREA_OF_INTEREST'" for="value"
-        >Koordinaten des Observationsgebiet</label
+        >Koordinaten des Observationsgebiet
+        <span style="color: red;">*</span></label
       >
       <label *ngIf="defaultProcessID == 'MASKING_DATA'" for="value"
-        >Layer zum Maskieren</label
+        >Maske <span style="color: red;">*</span></label
       >
     </span>
     <ng-template #blackValue>
@@ -37,7 +46,7 @@
           >Koordinaten des Observationsgebiet</label
         >
         <label *ngIf="defaultProcessID == 'MASKING_DATA'" for="value"
-          >Layer zum Maskieren</label
+          >Maske</label
         >
       </span>
     </ng-template>
@@ -67,14 +76,17 @@
       Latitude.
     </small>
   </div>
+</fieldset>
 
-  <!--Data type-->
-  <div class="form-group">
+<!------------------This may become handy -------------------------->
+
+  <!--Datatype, when the user needs to chose between 'text and numeric'-->
+  <!--   <div class="form-group">
     <label
         *ngIf="!dataType.valid; else blackDataType"
         for="dataType"
-        style="color: red;"
-        >Datentyp
+
+        >Datentyp <span style="color: red;">*</span>
       </label>
       <ng-template #blackDataType>
         <label for="dataType">Datentyp</label>
@@ -92,7 +104,4 @@
       <option value="text">Text</option>
       <option value="numeric">numerisch</option>
     </select>
-  </div>
-</fieldset>
-
-<p>{{ defaultProcessID }}</p>
+  </div> -->

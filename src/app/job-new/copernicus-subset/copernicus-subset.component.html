@@ -22,8 +22,8 @@
     <label
       *ngIf="!satellite.valid; else blackSatellite"
       for="satellite"
-      style="color: red;"
-      >Satellit
+
+      >Satellit <span style="color: red;">*</span>
     </label>
     <ng-template #blackSatellite>
       <label for="satellite">Satellit </label>
@@ -36,6 +36,7 @@
       name="satellite"
       required
       #satellite="ngModel"
+      (ngModelChange)= "updateSelectedSatellite($event)"
     >
       <option selected></option>
       <option value="sentinel-1">Sentinel-1</option>
@@ -50,8 +51,8 @@
   <label
     *ngIf="!cloudCoverage.valid; else blackCloudCoverage"
     for="cloudCoverage"
-    style="color: red;"
-    >maximale Wolkenbedeckung in %
+
+    >maximale Wolkenbedeckung in % <span style="color: red;">*</span>
   </label>
   <div class="form-group">
     <ng-template #blackCloudCoverage>
@@ -71,7 +72,7 @@
       name="maximumCloudCoverage"
       required
       #cloudCoverage ="ngModel"
-    />
+    /> <!--(ngModelChange)= "updateCloudCoverage($event)"-->
   </div>
 
   <!--instrument-->
@@ -167,5 +168,5 @@
   </div>
 </fieldset>
 
-<p>{{ selectedSatellite }}</p>
-<p>{{ defaultProcessID }}</p>
+<!-- <p>{{ selectedSatellite }}</p>
+<p>{{ defaultProcessID }}</p> -->

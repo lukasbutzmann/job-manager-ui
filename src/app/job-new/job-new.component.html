@@ -1,235 +1,326 @@
 <div class="container" style="margin-top: 20px;">
   <br />
   <h2 align="center">Job anlegen</h2>
-  <form (ngSubmit)="onSubmitJob()" #f="ngForm">
-    <!-- Job name -->
-    <div class="form-group">
-      <label
-        *ngIf="!jobName.valid; else blackJobName"
-        for="jobName"
-        style="color: red;"
-        >Jobname
-      </label>
-      <ng-template #blackJobName>
-        <label for="jobName">Jobname </label>
-      </ng-template>
-      <input
-        style="max-width: 350px;"
-        class="form-control"
-        id="jobName"
-        placeholder=""
-        ngModel
-        name="jobName"
-        required
-        #jobName="ngModel"
-      />
-      <span
-        class="help-block"
-        style="color: red; font-size: small;"
-        *ngIf="!jobName.valid && jobName.touched"
-        >Bitte gib einen Jobnamen an
-      </span>
-    </div>
+  <br /><br />
+  <div class="row">
+    <form (ngSubmit)="open(content)" #f="ngForm">
+      <!-- Job name -->
+      <div class="form-group">
+        <label *ngIf="!jobName.valid; else blackJobName" for="jobName"
+          >Jobname <span style="color: red;">*</span>
+        </label>
+        <ng-template #blackJobName>
+          <label for="jobName">Jobname </label>
+        </ng-template>
+        <input
+          style="max-width: 350px;"
+          class="form-control"
+          id="jobName"
+          placeholder=""
+          ngModel
+          name="jobName"
+          required
+          #jobName="ngModel"
+        />
+        <!--         <span
+          class="help-block"
+          style="color: red; font-size: small;"
+          *ngIf="!jobName.valid && jobName.touched"
+          >Bitte gib einen Jobnamen an
+        </span> -->
+      </div>
 
-    <!-- Coordinates -->
-    <div class="form-group">
-      <label
-        *ngIf="!extent.valid; else blackExtent"
-        for="extent"
-        style="color: red;"
-        >Koordinaten des Observationsgebiets
-      </label>
-      <ng-template #blackExtent>
-        <label for="extent">Koordinaten des Observationsgebiets</label>
-      </ng-template>
-      <br />
-      <!--       <span
+      <!-- Coordinates -->
+      <div class="form-group">
+        <label *ngIf="!extent.valid; else blackExtent" for="extent"
+          >Koordinaten des Observationsgebiets
+          <span style="color: red;">*</span>
+        </label>
+        <ng-template #blackExtent>
+          <label for="extent">Koordinaten des Observationsgebiets</label>
+        </ng-template>
+        <br />
+        <!--       <span
         class="help-block"
         style="color: red; font-size: small;"
         *ngIf="!extent.valid && extent.touched"
       >
       </span> -->
-      <input
-        style="max-width: 350px;"
-        class="form-control"
-        id="extent"
-        placeholder=" z.B.  7.1179, 51.2407, 7.2527, 51.2884"
-        ngModel
-        name="extent"
-        required
-        #extent="ngModel"
-      />
-      <small id="Help" class="form-text text-muted"
-        >Eingabereihenfolge: min Longitude, min Latitude, max Longitude, max
-        Latitude. Du hast keine Koordinaten? Schau zum Beispiel hier:
-        <a href="https://www.openstreetmap.org/export#map=14/51.2659/7.1893">
-          OpenStreetMap
-        </a>
-      </small>
-    </div>
+        <input
+          style="max-width: 350px;"
+          class="form-control"
+          id="extent"
+          placeholder=" z.B.  7.1179, 51.2407, 7.2527, 51.2884"
+          ngModel
+          name="extent"
+          required
+          #extent="ngModel"
+        />
+        <small id="Help" class="form-text text-muted"
+          >Eingabereihenfolge: min Longitude, min Latitude, max Longitude, max
+          Latitude. <br />
+          Du hast keine Koordinaten? Schau zum Beispiel hier:
+          <a
+            href="https://www.openstreetmap.org/export#map=14/51.2659/7.1893"
+            target="_blank"
+          >
+            OpenStreetMap </a
+          >. Die Koordinaten aus OpenStreetMap sind wie folgt zu lesen: <br />
+          links (min Long), mitte unten (min Lat), rechts (max Long), mitte oben
+          (max Lat).
+        </small>
+      </div>
 
-    <!--Processing tool-->
-    <div class="form-group">
-      <label
-        *ngIf="!processingTool.valid; else blackProcessingTool"
-        for="processingTool"
-        style="color: red;"
-        >Produkt
-      </label>
-      <ng-template #blackProcessingTool>
-        <label for="processingTool">Produkt</label>
-      </ng-template>
-      <select
-        style="max-width: 350px;"
-        class="form-control"
-        id="processingTool"
-        [(ngModel)]="selectedProcessingTool"
-        name="processingTool"
-        required
-        #processingTool="ngModel"
-      >
-        <option selected></option>
-        <option
-          *ngFor="let process of processMappings"
-          [value]="process.processId"
-          >{{ process.name }}</option
+      <!--Processing tool-->
+      <div class="form-group">
+        <label
+          *ngIf="!processingTool.valid; else blackProcessingTool"
+          for="processingTool"
+          >Produkt <span style="color: red;">*</span>
+        </label>
+        <ng-template #blackProcessingTool>
+          <label for="processingTool">Produkt</label>
+        </ng-template>
+        <select
+          style="max-width: 350px;"
+          class="form-control"
+          id="processingTool"
+          [(ngModel)]="selectedProcessingTool"
+          name="processingTool"
+          required
+          #processingTool="ngModel"
         >
-      </select>
-    </div>
-    <!-- Data subsets ; dynamically set as depending on the choice of the Processing tool -->
-    <div class="form-group">
-      <div *ngFor="let process of processMappings">
-        <div *ngIf="process.processId === selectedProcessingTool">
-          <p style="color: red;">Definiere die Eingabedaten</p>
-          <div *ngFor="let input of process.inputs; let i = index">
-            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-              <ngb-panel title="{{ input.inputType }}">
-                <ng-template ngbPanelContent>
-                  <app-static-subset
-                    [index]="i"
-                    [defaultProcessID]="input.processInputId"
-                    *ngIf="
-                      input.inputType == 'StaticSubsetDefinition';
-                      else copernicus
-                    "
-                  ></app-static-subset>
-                </ng-template>
-                <ng-template #copernicus>
-                  <app-copernicus-subset
-                    [index]="i"
-                    [defaultProcessID]="input.processInputId"
-                  ></app-copernicus-subset>
-                </ng-template>
-              </ngb-panel>
-            </ngb-accordion>
+          <option selected></option>
+          <option
+            *ngFor="let process of processMappings"
+            [value]="process.processId"
+            >{{ process.name }}</option
+          >
+        </select>
+      </div>
+      <!-- Data subsets ; dynamically set as depending on the choice of the Processing tool -->
+      <div class="form-group">
+        <div *ngFor="let process of processMappings">
+          <div *ngIf="process.processId === selectedProcessingTool">
+            <p>Definiere die Eingabedaten</p>
+            <div *ngFor="let input of process.inputs; let i = index">
+              <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                <ngb-panel title="{{ input.inputType }}">
+                  <ng-template ngbPanelContent>
+                    <app-static-subset
+                      [index]="i"
+                      [defaultProcessID]="input.processInputId"
+                      *ngIf="
+                        input.inputType == 'StaticSubsetDefinition';
+                        else copernicus
+                      "
+                    ></app-static-subset>
+                  </ng-template>
+                  <ng-template #copernicus>
+                    <app-copernicus-subset
+                      [index]="i"
+                      [defaultProcessID]="input.processInputId"
+                    ></app-copernicus-subset>
+                    <!--(selectedSatelliteEmit)="setSatellite($event)"  (selectedCloudCoverageEmit)="setCloudCoverage($event)"  -->
+                  </ng-template>
+                </ngb-panel>
+              </ngb-accordion>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <br />
-    <!-- Job description-->
-    <div class="form-group">
-      <label for="jobDescription"
-        >Jobbeschreibung <span style="color: gray;">optional</span></label
-      >
-      <textarea
-        style="max-width: 350px;"
-        class="form-control"
-        id="jobDescription"
-        rows="3"
-        ngModel
-        name="jobDescription"
-      ></textarea>
-    </div>
-    <!-- Use case-->
-    <div class="form-group">
-      <label for="useCase"
-        >Verwendungszweck <span style="color: gray;">optional</span>
-      </label>
-      <textarea
-        style="max-width: 350px;"
-        class="form-control"
-        id="useCase"
-        rows="2"
-        ngModel
-        name="useCase"
-      ></textarea>
-    </div>
+      <br />
+      <!-- Job description-->
+      <div class="form-group">
+        <label for="jobDescription"
+          >Jobbeschreibung <span style="color: gray;">optional</span></label
+        >
+        <textarea
+          style="max-width: 350px;"
+          class="form-control"
+          id="jobDescription"
+          rows="3"
+          ngModel
+          name="jobDescription"
+        ></textarea>
+      </div>
+      <!-- Use case-->
+      <div class="form-group">
+        <label for="useCase"
+          >Verwendungszweck <span style="color: gray;">optional</span>
+        </label>
+        <textarea
+          style="max-width: 350px;"
+          class="form-control"
+          id="useCase"
+          rows="2"
+          ngModel
+          name="useCase"
+        ></textarea>
+      </div>
 
-    <!--TODO Explain both input fields-->
+      <!--TODO Explain both input fields-->
 
-    <!--Cronjob-->
-    <br />
-    <br />
-    <h4 style="color: #4d80bd;">Diesen Job planen</h4>
-    <p style="color: dimgray;">
-      Die folgenden Angaben werden benötigt, um den Prozess mehrfach in
-      bestimmten Abständen oder zu bestimmten Tages-/Wochen-/... zeiten
-      automatisch auszuführen. Ohne diese Angaben wird der Job einmal sofort
-      nach klicken auf den 'Abschicken'-Knopf ausgeführt.
-    </p>
-    <br />
-    <div class="form-group">
-      <label for="pattern">Ausführungsmoment als Cronjob</label>
-      <input
-        style="max-width: 350px;"
-        class="form-control"
-        id="pattern"
-        placeholder="z.B.   5 0 * 8 *"
-        ngModel
-        name="pattern"
-      />
-      <small id="Help" class="form-text text-muted">
-        Wie du einen Cronjob angibst findest du hier:
-        <a href="https://crontab.guru/">crontab guru</a>
-      </small>
-    </div>
-    <!-- Temporal Coverage: Duration -->
-    <div class="form-group">
-      <label for="duration">Zeitabdeckung</label>
-      <input
-        style="max-width: 350px;"
-        class="form-control"
-        id="duration"
-        placeholder="z.B. P3D"
-        ngModel
-        name="duration"
-        #duration="ngModel"
-      />
-      <small id="Help" class="form-text text-muted">
-        Das Format der Angabe der Dauer entspricht dem ISO 8601 Format. Wie du
-        die Dauer angibst findest du hier:
-        <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO8601</a>
-      </small>
-    </div>
-
-    <br />
-    <br />
-    <!--Error Handling-->
-    <!--     <div class="alert alert-danger" *ngIf="error">
-      <h5>Ein Fehler ist aufgetreten</h5>
-      <p>Status: {{ errorStatus }}</p>
-      <p>
-        Hier kannst du nachsehen, was dieser Code bedeutet:
-        <a href="https://de.ryte.com/wiki/HTTP_Status_Code">Codeerklärungen</a>
+      <!--Cronjob-->
+      <br />
+      <br />
+      <h4 style="color: #4d80bd;">Diesen Job planen</h4>
+      <p style="color: dimgray;">
+        Die folgenden Angaben werden benötigt, um den Prozess mehrfach in
+        bestimmten Abständen oder zu bestimmten Tages-/Wochen-/... zeiten
+        automatisch auszuführen. Ohne diese Angaben wird der Job einmal sofort
+        nach klicken auf den 'Abschicken'-Knopf ausgeführt.
       </p>
-    </div> -->
+      <br />
+      <div class="form-group">
+        <label for="pattern">Ausführungsmoment als Cronjob</label>
+        <input
+          style="max-width: 350px;"
+          class="form-control"
+          id="pattern"
+          placeholder="z.B.   5 0 * 8 *"
+          ngModel
+          name="pattern"
+        />
+        <small id="Help" class="form-text text-muted">
+          Wie du einen Cronjob angibst findest du hier:
+          <a href="https://crontab.guru/" target="_blank">crontab guru</a>
+        </small>
+      </div>
+      <!-- Temporal Coverage: Duration -->
+      <div class="form-group">
+        <label for="duration">Zeitabdeckung</label>
+        <input
+          style="max-width: 350px;"
+          class="form-control"
+          id="duration"
+          placeholder="z.B. P3D"
+          ngModel
+          name="duration"
+          #duration="ngModel"
+        />
+        <small id="Help" class="form-text text-muted">
+          Das Format der Angabe der Dauer entspricht dem ISO 8601 Format. Wie du
+          die Dauer angibst findest du hier:
+          <a
+            href="https://en.wikipedia.org/wiki/ISO_8601#Durations"
+            target="_blank"
+            >ISO8601</a
+          >
+        </small>
+      </div>
+      <br />
 
-    <!--Submit button-->
-    <button
-      type="button submit"
-      class="btn btn-primary"
-      style="margin: 5px;"
-      style="border-color: #e3ecf6; color: #e3ecf6; background-color: #4d80bd;"
-    >
-      Abschicken
-    </button>
-  </form>
+      <!-- <pre>{{ f.value | json }}</pre> -->
+      <!--Error Handling-->
+      <div class="alert alert-danger" *ngIf="error">
+        <h5>Ein Fehler ist aufgetreten</h5>
+        <p>Status: {{ errorStatus }}</p>
+        <p>
+          Hier kannst du nachsehen, was dieser Code bedeutet:
+          <a href="https://de.ryte.com/wiki/HTTP_Status_Code"
+            >Codeerklärungen</a
+          >
+        </p>
+      </div>
+
+      <!--Validation button, when clicked,the modal opens-->
+      <button [disabled]="!f.valid" class="btn btn-lg btn-outline-primary" (click)="setJob()">
+        <!--[disabled]="!f.valid" -->
+        Job checken und abschicken
+      </button>
+
+      <!-------------------Modal----------------------->
+      <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Job abschicken?</h4>
+          <!--Modal: Cross button-->
+          <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            (click)="modal.dismiss('Cross click')"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!--Modal: Body-->
+        <div class="modal-body">
+          <p>
+            Jobname
+            <span
+              ><h2>{{ jobForPost.name }}</h2></span
+            >
+          </p>
+          <p>
+            Koordinaten <br />
+            {{ jobForPost.areaOfInterest.extent }}
+          </p>
+          <p>
+            Produkt: <br />
+            {{ jobForPost.productCollection }}
+          </p>
+          <div *ngFor="let input of jobForPost.inputs; let i = index">
+            <h5 style="background-color: #e3ecf6; color: #4d80bd;">
+              {{ input.sourceType }}
+            </h5>
+            <div *ngIf="input.sourceType == 'StaticSubsetDefinition'">
+              <p>
+                Eingabewert (Koordinaten oder URL): <br />
+                {{ input.value }}
+              </p>
+            </div>
+
+            <div *ngIf="input.sourceType == 'CopernicusSubsetDefinition'">
+              <p>
+                Satellit: <br />
+                {{ input.satellite }}
+              </p>
+              <p>
+                maximale Wolkenbedeckung (%): <br />
+                {{ input.maximumCloudCoverage }}
+              </p>
+              <p *ngIf="input.sensorMode">
+                Sensor Mode (optional): <br />
+                {{ input.sensorMode }}
+              </p>
+              <p *ngIf="input.productType">
+                Produkttyp (optional) : <br />
+                {{ input.productType }}
+              </p>
+              <br />
+            </div>
+          </div>
+          <hr />
+        </div>
+        <div class="modal-footer">
+          <!--Modal: Submission button-->
+          <button
+            type="button submit"
+            class="btn btn-primary"
+            style="
+              border-color: #e3ecf6;
+              color: #e3ecf6;
+              background-color: #4d80bd;
+            "
+            (click)="submitThisJob()"
+          >
+            Abschicken
+          </button>
+          <!--Modal: Cancel button-->
+          <button
+            type="button"
+            class="btn btn-outline-dark"
+            (click)="modal.close('Save click')"
+          >
+            Cancel
+          </button>
+        </div>
+      </ng-template>
+    </form>
+  </div>
+  <br />
 </div>
-<br />
-
-<!--Show form object as json -->
-<pre>{{ f.value | json }}</pre>
 
 <!-- ---------------------------------------------------------------------------------- -->
 
@@ -239,3 +330,36 @@
         > ... selektiere das Observationsgebiet</label>
         <app-leaflet-map></app-leaflet-map>
       </div> -->
+
+<!--
+  <div *ngIf="showForm === true">
+      <p>
+        Jobname
+        <span
+          ><h2>{{ jobForPost.name }}</h2></span
+        >
+      </p>
+      <p>
+        Koordinaten <br />
+        {{ jobForPost.areaOfInterest.extent }}
+      </p>
+      <p>
+        Produkt: <br />
+        {{ jobForPost.productCollection }}
+      </p>
+      <p>
+        Satellit <br />
+        {{ receivedSatellite }}
+      </p>
+      <p>
+        maximale Wolkenbedeckung <br />
+        {{ receivedCloudCoverage }}
+      </p>
+      <p>
+        Jobbeschreibung: <br />
+        {{ f.value.jobDescription }}
+      </p>
+  </div> -->
+
+<!--Show form object as json -->
+<!-- <pre>{{ f.value | json }}</pre> -->
