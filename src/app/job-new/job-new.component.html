@@ -292,6 +292,14 @@
             </div>
           </div>
           <hr />
+          <p *ngIf="jobForPost.execution.pattern">
+            Ausführungsmoment: <br />
+            {{ jobForPost.execution.pattern }}
+          </p>
+          <p *ngIf="jobForPost.temporalCoverage.duration">
+            Zeitliche Abdeckung: <br />
+            {{ jobForPost.temporalCoverage.duration }}
+          </p>
         </div>
         <div class="modal-footer">
           <!--Modal: Submission button-->

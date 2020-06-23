@@ -86,6 +86,11 @@
                 job.execution.pattern
               }}
             </p>
+            <p *ngIf="job.temporalCoverage.duration">
+              <b>Zeitliche Abdeckung</b><br />{{
+                job.temporalCoverage.duration
+              }}
+            </p>
             <br />
             <!--Eingabedaten-->
             <div>

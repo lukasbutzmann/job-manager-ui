@@ -23,16 +23,16 @@ export class DataService {
   getData() {
     return this.http.
       // tslint:disable-next-line: max-line-length
-      get<Page<Job>>('http://localhost:8080/jobDefinitions')
+      get<Page<Job>>('https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions')
       .pipe(
-        catchError(this.handleError)); // 'https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions'
+        catchError(this.handleError)); // http://localhost:8080/jobDefinitions
   }
 
   // Post a job
   storeData(jobToPost: any) {
     const job = jobToPost;
     return this.http.
-      post('http://localhost:8080/jobDefinitions', job)
+      post('https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions', job)
       .pipe(
         catchError(this.handleError));
   }
@@ -40,7 +40,7 @@ export class DataService {
   // Delete selected job
   deleteData(id: string) {
     return this.http.
-      delete(`http://localhost:8080/jobDefinitions/${id}`);
+      delete(`https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions/${id}`);
   }
 
   handleError(error: HttpErrorResponse) {
