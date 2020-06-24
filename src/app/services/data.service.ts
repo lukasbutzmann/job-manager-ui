@@ -4,9 +4,11 @@ import { Page } from '../modelGet/page.model';
 import { Job } from '../modelGet/job.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { catchError, retry } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError} from 'rxjs';
 
+// import environment variables
+import { environment } from './../../environments/environment';
 
 
 
@@ -23,7 +25,7 @@ export class DataService {
   getData() {
     return this.http.
       // tslint:disable-next-line: max-line-length
-      get<Page<Job>>('https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions')
+      get<Page<Job>>(environment.wacodisAPI)
       .pipe(
         catchError(this.handleError)); // http://localhost:8080/jobDefinitions
   }
@@ -32,7 +34,7 @@ export class DataService {
   storeData(jobToPost: any) {
     const job = jobToPost;
     return this.http.
-      post('https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions', job)
+      post(environment.wacodisAPI, job)
       .pipe(
         catchError(this.handleError));
   }
@@ -40,9 +42,10 @@ export class DataService {
   // Delete selected job
   deleteData(id: string) {
     return this.http.
-      delete(`https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions/${id}`);
+      delete(environment.wacodisAPI + `/${id}`);
   }
 
+  // Handle error
   handleError(error: HttpErrorResponse) {
     // console.log(error.status);
     return throwError(error);

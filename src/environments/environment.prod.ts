@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  wacodisAPI: 'https://wacodis.demo.52north.org/wacodis-job-definition-api/jobDefinitions'
 };
