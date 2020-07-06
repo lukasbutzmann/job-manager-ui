@@ -102,7 +102,9 @@
       <div class="form-group">
         <div *ngFor="let process of processMappings">
           <div *ngIf="process.processId === selectedProcessingTool">
+            <br />
             <p>Definiere die Eingabedaten</p>
+
             <div *ngFor="let input of process.inputs; let i = index">
               <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
                 <ngb-panel title="{{ input.inputType }}">
@@ -125,9 +127,40 @@
                   </ng-template>
                 </ngb-panel>
               </ngb-accordion>
+              <br />
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Temporal Coverage: Duration -->
+      <div class="form-group">
+        <label for="duration"
+          >Zeitabdeckung <span style="color: red;">*</span>
+        </label>
+        <input
+          style="max-width: 350px;"
+          class="form-control"
+          id="duration"
+          placeholder="z.B. P3D"
+          ngModel
+          required
+          name="duration"
+          #duration="ngModel"
+        />
+        <small id="Help" class="form-text text-muted">
+          Das Format der Angabe der zu analysierenden Zeitperiode entspricht dem
+          ISO 8601 Format. Wie du die Dauer angibst findest du hier:
+          <a
+            href="https://en.wikipedia.org/wiki/ISO_8601#Durations"
+            target="_blank"
+            >ISO8601</a
+          > <br>
+          Beispiele: <br>
+           P3M entspricht den letzten 3 Monaten (M für Englisch 'month') <br>
+           P1Y entspricht dem letzten Jahr (Y für Englisch 'year') <br>
+           P1Y14D enspricht dem letzten Jahr und 14 Tage (D für Englisch 'day')
+        </small>
       </div>
       <br />
       <!-- Job description-->
@@ -168,10 +201,10 @@
       <p style="color: dimgray;">
         Die folgenden Angaben werden benötigt, um den Prozess mehrfach in
         bestimmten Abständen oder zu bestimmten Tages-/Wochen-/... zeiten
-        automatisch auszuführen. Ohne diese Angaben wird der Job einmal sofort
-        nach klicken auf den 'Abschicken'-Knopf ausgeführt.
+        automatisch auszuführen. Ohne diese Angaben wird der Prozess einmal
+        ausgeführt und das Produkt einmal erstellt.
       </p>
-      <br />
+
       <div class="form-group">
         <label for="pattern">Ausführungsmoment als Cronjob</label>
         <input
@@ -185,28 +218,6 @@
         <small id="Help" class="form-text text-muted">
           Wie du einen Cronjob angibst findest du hier:
           <a href="https://crontab.guru/" target="_blank">crontab guru</a>
-        </small>
-      </div>
-      <!-- Temporal Coverage: Duration -->
-      <div class="form-group">
-        <label for="duration">Zeitabdeckung</label>
-        <input
-          style="max-width: 350px;"
-          class="form-control"
-          id="duration"
-          placeholder="z.B. P3D"
-          ngModel
-          name="duration"
-          #duration="ngModel"
-        />
-        <small id="Help" class="form-text text-muted">
-          Das Format der Angabe der Dauer entspricht dem ISO 8601 Format. Wie du
-          die Dauer angibst findest du hier:
-          <a
-            href="https://en.wikipedia.org/wiki/ISO_8601#Durations"
-            target="_blank"
-            >ISO8601</a
-          >
         </small>
       </div>
       <br />
@@ -225,15 +236,19 @@
       </div>
 
       <!--Validation button, when clicked,the modal opens-->
-      <button [disabled]="!f.valid" class="btn btn-lg btn-outline-primary" (click)="setJob()">
+      <button
+        [disabled]="!f.valid"
+        class="btn btn-lg btn-outline-primary"
+        (click)="setJob()"
+      >
         <!--[disabled]="!f.valid" -->
         Job checken und abschicken
       </button>
 
       <!-------------------Modal----------------------->
+
       <ng-template #content let-modal>
         <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Job abschicken?</h4>
           <!--Modal: Cross button-->
           <button
             type="button"
@@ -247,59 +262,80 @@
         <!--Modal: Body-->
         <div class="modal-body">
           <p>
-            Jobname
             <span
               ><h2>{{ jobForPost.name }}</h2></span
             >
           </p>
+
+          <!--Coordinates-->
           <p>
-            Koordinaten <br />
+            <b>Koordinaten</b> <br />
             {{ jobForPost.areaOfInterest.extent }}
           </p>
+
+          <!--Jobbeschreibung-->
+          <p *ngIf="jobForPost.description">
+            <b>Beschreibung:</b> <br />
+            {{ jobForPost.description }}
+          </p>
+
+          <!--Verwendungszweck-->
+          <p *ngIf="jobForPost.useCase">
+            <b>Verwendungszweck: </b> <br />
+            {{ jobForPost.useCase }}
+          </p>
+
+          <!--Produkttyp-->
           <p>
-            Produkt: <br />
+            <b>Produkt: </b> <br />
             {{ jobForPost.productCollection }}
           </p>
+          <!--Period-->
+          <p *ngIf="jobForPost.temporalCoverage.duration">
+            <b>Zeitliche Abdeckung: </b> <br />
+            {{ jobForPost.temporalCoverage.duration }}
+          </p>
+          <!--Cron Pattern-->
+          <p *ngIf="jobForPost.execution.pattern">
+            <b>Ausführungsmoment: </b> <br />
+            {{ jobForPost.execution.pattern }}
+          </p>
+          <br />
+          <hr />
+          <!--Eingabedaten-->
+          <h5>Eingabedaten:</h5>
           <div *ngFor="let input of jobForPost.inputs; let i = index">
             <h5 style="background-color: #e3ecf6; color: #4d80bd;">
               {{ input.sourceType }}
             </h5>
+            <!--Static Subset-->
             <div *ngIf="input.sourceType == 'StaticSubsetDefinition'">
               <p>
                 Eingabewert (Koordinaten oder URL): <br />
                 {{ input.value }}
               </p>
             </div>
-
+            <!--Copernicus-->
             <div *ngIf="input.sourceType == 'CopernicusSubsetDefinition'">
               <p>
-                Satellit: <br />
+                <b>Satellit: </b> <br />
                 {{ input.satellite }}
               </p>
               <p>
-                maximale Wolkenbedeckung (%): <br />
+                <b>maximale Wolkenbedeckung (%):</b> <br />
                 {{ input.maximumCloudCoverage }}
               </p>
               <p *ngIf="input.sensorMode">
-                Sensor Mode (optional): <br />
+                <b>Sensor Mode </b> (optional): <br />
                 {{ input.sensorMode }}
               </p>
               <p *ngIf="input.productType">
-                Produkttyp (optional) : <br />
+                <b>Produkttyp</b> (optional) : <br />
                 {{ input.productType }}
               </p>
               <br />
             </div>
           </div>
-          <hr />
-          <p *ngIf="jobForPost.execution.pattern">
-            Ausführungsmoment: <br />
-            {{ jobForPost.execution.pattern }}
-          </p>
-          <p *ngIf="jobForPost.temporalCoverage.duration">
-            Zeitliche Abdeckung: <br />
-            {{ jobForPost.temporalCoverage.duration }}
-          </p>
         </div>
         <div class="modal-footer">
           <!--Modal: Submission button-->
