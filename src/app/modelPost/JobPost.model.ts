@@ -5,6 +5,7 @@ import { AreaOfInterest } from './../modelGet/areaOfInterest.model';
 import { RetrySettings } from '../modelGet/retrySettings.model';
 
 
+
 export interface JobPost {
   areaOfInterest: AreaOfInterest;
   id: string;

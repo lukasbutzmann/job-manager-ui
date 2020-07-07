@@ -13,7 +13,7 @@
           type="button"
           style="margin: 5px;"
           class="btn btn-outline-dark"
-          (click)="isCollapsed = !isCollapsed"
+          (click)="onSelected()"
           [attr.aria-expanded]="!isCollapsed"
           aria-controls="collapseExample"
           style="
@@ -82,10 +82,16 @@
             </p>
             <p><b>Status</b> <br />{{ job.status }}</p>
             <p *ngIf="job.execution.pattern">
-              <b>Ausführungsintervall (cron Format)</b><br />{{
+              <b>Ausführungsmuster (cron Format)</b><br />{{
                 job.execution.pattern
               }}
             </p>
+            <div *ngIf="job.execution.event">
+              <p *ngIf="job.execution.event.startAt">
+                <b>Einmaliger Ausführungsmoment</b><br />{{ job.execution.event.startAt }}
+              </p>
+            </div>
+
             <p *ngIf="job.temporalCoverage.duration">
               <b>Zeitliche Abdeckung</b><br />{{
                 job.temporalCoverage.duration
@@ -135,11 +141,9 @@
 </div>
 <br />
 
-
-
 <!------------Edit Button, when patch in API enabled------------------->
 
-        <!--Edit button-->
+<!--Edit button-->
 <!--         <button
           disabled
           style="margin: 5px; color: #4d80bd; border-color: #4d80bd;"

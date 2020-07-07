@@ -1,6 +1,6 @@
 import { Event } from './event.model';
 
 export interface Execution {
-  event: Event;
+  event?: Event;
   pattern: string;
 }

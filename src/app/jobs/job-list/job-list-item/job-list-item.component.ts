@@ -1,8 +1,5 @@
-import { Subject } from 'rxjs';
-import { DataService } from '../../../services/data.service';
 import { Job } from '../../../modelGet/job.model';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
 
 
 @Component({

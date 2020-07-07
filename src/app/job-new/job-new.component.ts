@@ -39,6 +39,9 @@ export class JobNewComponent implements OnInit {
   receivedSatellite: Event;
   receivedCloudCoverage: Event;
 
+  // For process planing
+  planProcessing = '';
+
   // For error messages
   error: null;
   errorStatus: null;
@@ -100,6 +103,7 @@ export class JobNewComponent implements OnInit {
     const relevantProductCollection = this.valueProductCollection(this.processMappings, this.selectedProcessingTool);
     // Create list of input subsets as value for post request key 'inputs' by applying custom method 'valueInputs'
     const inputArray = this.valueInputs(this.signupForm);
+    console.log('form: ', this.signupForm);
     // Set job object which should be sent to server with post request
     this.jobForPost = {
       areaOfInterest: {
@@ -109,7 +113,8 @@ export class JobNewComponent implements OnInit {
       description: this.signupForm.value.jobDescription,
       execution: {
         event: {
-          eventType: 'SingleJobExecutionEvent'
+          eventType: 'SingleJobExecutionEvent',
+          startAt: this.signupForm.value.startAt
         },
         pattern: this.signupForm.value.pattern,
 

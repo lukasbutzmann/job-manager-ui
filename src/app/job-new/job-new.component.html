@@ -6,12 +6,7 @@
     <form (ngSubmit)="open(content)" #f="ngForm">
       <!-- Job name -->
       <div class="form-group">
-        <label *ngIf="!jobName.valid; else blackJobName" for="jobName"
-          >Jobname <span style="color: red;">*</span>
-        </label>
-        <ng-template #blackJobName>
-          <label for="jobName">Jobname </label>
-        </ng-template>
+        <label for="jobName">Jobname <span style="color: red;">*</span> </label>
         <input
           style="max-width: 350px;"
           class="form-control"
@@ -32,13 +27,10 @@
 
       <!-- Coordinates -->
       <div class="form-group">
-        <label *ngIf="!extent.valid; else blackExtent" for="extent"
+        <label for="extent"
           >Koordinaten des Observationsgebiets
           <span style="color: red;">*</span>
         </label>
-        <ng-template #blackExtent>
-          <label for="extent">Koordinaten des Observationsgebiets</label>
-        </ng-template>
         <br />
         <!--       <span
         class="help-block"
@@ -73,14 +65,9 @@
 
       <!--Processing tool-->
       <div class="form-group">
-        <label
-          *ngIf="!processingTool.valid; else blackProcessingTool"
-          for="processingTool"
+        <label for="processingTool"
           >Produkt <span style="color: red;">*</span>
         </label>
-        <ng-template #blackProcessingTool>
-          <label for="processingTool">Produkt</label>
-        </ng-template>
         <select
           style="max-width: 350px;"
           class="form-control"
@@ -98,6 +85,7 @@
           >
         </select>
       </div>
+
       <!-- Data subsets ; dynamically set as depending on the choice of the Processing tool -->
       <div class="form-group">
         <div *ngFor="let process of processMappings">
@@ -155,14 +143,16 @@
             href="https://en.wikipedia.org/wiki/ISO_8601#Durations"
             target="_blank"
             >ISO8601</a
-          > <br>
-          Beispiele: <br>
-           P3M entspricht den letzten 3 Monaten (M für Englisch 'month') <br>
-           P1Y entspricht dem letzten Jahr (Y für Englisch 'year') <br>
-           P1Y14D enspricht dem letzten Jahr und 14 Tage (D für Englisch 'day')
+          >
+          <br />
+          Beispiele: <br />
+          P3M entspricht den letzten 3 Monaten (M für Englisch 'month') <br />
+          P1Y entspricht dem letzten Jahr (Y für Englisch 'year') <br />
+          P1Y14D enspricht dem letzten Jahr und 14 Tage (D für Englisch 'day')
         </small>
       </div>
       <br />
+
       <!-- Job description-->
       <div class="form-group">
         <label for="jobDescription"
@@ -177,6 +167,7 @@
           name="jobDescription"
         ></textarea>
       </div>
+
       <!-- Use case-->
       <div class="form-group">
         <label for="useCase"
@@ -192,20 +183,42 @@
         ></textarea>
       </div>
 
-      <!--TODO Explain both input fields-->
+      <br />
+      <br />
 
-      <!--Cronjob-->
-      <br />
-      <br />
+      <!-------------------PROCESS PLANNING------------------>
+
       <h4 style="color: #4d80bd;">Diesen Job planen</h4>
       <p style="color: dimgray;">
-        Die folgenden Angaben werden benötigt, um den Prozess mehrfach in
-        bestimmten Abständen oder zu bestimmten Tages-/Wochen-/... zeiten
-        automatisch auszuführen. Ohne diese Angaben wird der Prozess einmal
-        ausgeführt und das Produkt einmal erstellt.
+        Die folgenden Angaben werden nur dann benötigt, wenn eine Analyse
+        entweder einmalig zu einem bestimmten Zeitpunkt oder mehrfach ausgeführt werden soll. Ohne diese Angaben wird
+        die gewählte Analyse einmal nach klicken auf den 'Abschicken'-Knopf
+        ausgeführt, mit dem Ergebnis, dass das gewünschte Produkt einmal sofort erstellt
+        wird.
       </p>
+      -
 
+      <!--Product creation planing-->
       <div class="form-group">
+        <label>Ausführung</label>
+        <select
+          style="max-width: 350px;"
+          class="form-control"
+          id="planProcessing"
+          name="planProcessing"
+          [(ngModel)]="planProcessing"
+        >
+          <option selected></option>
+          <option>Einmalige Produkterstellung</option>
+          <option>Regelmäßige Produkterstellung</option>
+        </select>
+      </div>
+
+      <!--Cronjob-->
+      <div
+        class="form-group"
+        *ngIf="planProcessing == 'Regelmäßige Produkterstellung'"
+      >
         <label for="pattern">Ausführungsmoment als Cronjob</label>
         <input
           style="max-width: 350px;"
@@ -220,6 +233,27 @@
           <a href="https://crontab.guru/" target="_blank">crontab guru</a>
         </small>
       </div>
+
+      <!--Single Job Processing Date-->
+      <div
+        class="form-group"
+        *ngIf="planProcessing == 'Einmalige Produkterstellung'"
+      >
+        <label for="startAt">Datum der Produkterstellung</label>
+        <input
+          style="max-width: 350px;"
+          class="form-control"
+          id="startAt"
+          placeholder="z.B.   2021-07-23T15:00:0Z"
+          ngModel
+          name="startAt"
+        />
+        <small id="Help" class="form-text text-muted">
+          Bitte gib Datum und Zeit wie folgt an:
+          Jahr-Monat-TagTStunde:Minute:SekundeZ
+        </small>
+      </div>
+
       <br />
 
       <!-- <pre>{{ f.value | json }}</pre> -->
@@ -299,6 +333,11 @@
           <p *ngIf="jobForPost.execution.pattern">
             <b>Ausführungsmoment: </b> <br />
             {{ jobForPost.execution.pattern }}
+          </p>
+          <!--Single Event DateTime-->
+          <p *ngIf="jobForPost.execution.event.startAt">
+            <b>Ausführungsmoment: </b> <br />
+            {{ jobForPost.execution.event.startAt }}
           </p>
           <br />
           <hr />
