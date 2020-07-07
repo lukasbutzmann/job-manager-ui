@@ -88,7 +88,9 @@
             </p>
             <div *ngIf="job.execution.event">
               <p *ngIf="job.execution.event.startAt">
-                <b>Einmaliger Ausführungsmoment</b><br />{{ job.execution.event.startAt }}
+                <b>Einmaliger Ausführungsmoment</b><br />{{
+                  job.execution.event.startAt
+                }}
               </p>
             </div>
 
@@ -114,7 +116,10 @@
                     {{ input.value }}
                   </p>
                 </div>
+
+                <!--Copernicus Input-->
                 <div *ngIf="input.sourceType == 'CopernicusSubsetDefinition'">
+                  <!--satellite-->
                   <p>
                     <span style="font-weight: bold;">
                       Satellit:
@@ -122,7 +127,9 @@
                     <br />
                     {{ input.satellite }}
                   </p>
-                  <p>
+
+                  <!--max cloud coverage-->
+                  <p *ngIf="input.satellite == 'sentinel-2'">
                     <span style="font-weight: bold;">
                       maximale Wolkenbedeckung (in %):
                     </span>
@@ -130,6 +137,7 @@
                     {{ input.maximumCloudCoverage }}
                   </p>
                 </div>
+
                 <br />
               </div>
             </div>

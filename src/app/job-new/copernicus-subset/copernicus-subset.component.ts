@@ -16,6 +16,8 @@ export class CopernicusSubsetComponent implements OnInit {
 
   sourceType = 'CopernicusSubsetDefinition';
 
+  cloudCoverage = 0;
+
   productType: string;
 
   constructor() { }

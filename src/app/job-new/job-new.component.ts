@@ -1,18 +1,23 @@
-import { JobPost } from './../modelPost/JobPost.model';
-import { Event } from './../modelGet/event.model';
+
 import { DataService } from './../services/data.service';
+
 // Angular Modules
 import { Router } from '@angular/router';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
+// Bootstrap models
+// Boostrap Modal
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+// Bootstrap Datepicker
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 
 // Data models
-import { Job } from './../modelGet/job.model';
 import { ProcessMapping } from './../processMapping.model';
+import { JobPost } from './../modelPost/JobPost.model';
+import { Event } from './../modelGet/event.model';
 
 // Services
 
@@ -49,12 +54,22 @@ export class JobNewComponent implements OnInit {
   // for modal
   closeResult = '';
 
+  // for Datepicker
+  //    datePickerModel: NgbDateStruct;
+  //    date: { year: number, month: number, day: number };
+
+  //    model: NgbDateStruct;
+
+
+  // for Timepicker
+  //   time = { hour: 13, minute: 30 };
 
   constructor(
     private router: Router,
     private dataService: DataService,
     private http: HttpClient,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal
+  ) { }
 
 
   ngOnInit() {
@@ -103,7 +118,8 @@ export class JobNewComponent implements OnInit {
     const relevantProductCollection = this.valueProductCollection(this.processMappings, this.selectedProcessingTool);
     // Create list of input subsets as value for post request key 'inputs' by applying custom method 'valueInputs'
     const inputArray = this.valueInputs(this.signupForm);
-    console.log('form: ', this.signupForm);
+    // console.log(`${this.signupForm.value.datePicker.year}-${this.signupForm.value.datePicker.month}-${this.signupForm.value.datePicker.day}`);
+    // console.log(this.signupForm.datePickerModel.day);
     // Set job object which should be sent to server with post request
     this.jobForPost = {
       areaOfInterest: {
