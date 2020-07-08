@@ -88,14 +88,14 @@
             </p>
             <div *ngIf="job.execution.event">
               <p *ngIf="job.execution.event.startAt">
-                <b>Einmaliger Ausführungsmoment</b><br />{{
+                <b>Einmaliger Ausführungsmoment (RFC 3339)</b><br />{{
                   job.execution.event.startAt
                 }}
               </p>
             </div>
 
             <p *ngIf="job.temporalCoverage.duration">
-              <b>Zeitliche Abdeckung</b><br />{{
+              <b>Zeitliche Abdeckung (ISO 8601)</b><br />{{
                 job.temporalCoverage.duration
               }}
             </p>
