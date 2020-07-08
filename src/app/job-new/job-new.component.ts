@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 // Boostrap Modal
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 // Bootstrap Datepicker
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 
 // Data models
@@ -45,7 +45,7 @@ export class JobNewComponent implements OnInit {
   receivedCloudCoverage: Event;
 
   // For process planing
-  planProcessing = '';
+  planProcessing = 'Sofort ausführen';
 
   // For error messages
   error: null;
@@ -55,14 +55,11 @@ export class JobNewComponent implements OnInit {
   closeResult = '';
 
   // for Datepicker
-  //    datePickerModel: NgbDateStruct;
-  //    date: { year: number, month: number, day: number };
-
-  //    model: NgbDateStruct;
-
+  datePickerModel: NgbDateStruct;
+  date: { year: number, month: number, day: number };
 
   // for Timepicker
-  //   time = { hour: 13, minute: 30 };
+  time = { hour: 13, minute: 30 };
 
   constructor(
     private router: Router,
@@ -99,7 +96,7 @@ export class JobNewComponent implements OnInit {
     }
   }
 
-  // receives value of the satellite input from child componet and sets the value to be displayed in view
+  // receives value of the satellite input from child component and sets the value to be displayed in view
   // TODO There may be a better method to be able to display the value
   setSatellite(event: Event) {
     const event1 = event;
@@ -118,8 +115,15 @@ export class JobNewComponent implements OnInit {
     const relevantProductCollection = this.valueProductCollection(this.processMappings, this.selectedProcessingTool);
     // Create list of input subsets as value for post request key 'inputs' by applying custom method 'valueInputs'
     const inputArray = this.valueInputs(this.signupForm);
-    // console.log(`${this.signupForm.value.datePicker.year}-${this.signupForm.value.datePicker.month}-${this.signupForm.value.datePicker.day}`);
-    // console.log(this.signupForm.datePickerModel.day);
+    // Create date object from input of datepicker and timepicker
+    const jsdate = new Date(
+      this.signupForm.value.datePicker.year,
+      this.signupForm.value.datePicker.month - 1,
+      this.signupForm.value.datePicker.day,
+      this.signupForm.value.timePicker.hour,
+      this.signupForm.value.timePicker.minute);
+    const timeFormatted = jsdate.toISOString();
+
     // Set job object which should be sent to server with post request
     this.jobForPost = {
       areaOfInterest: {
@@ -130,7 +134,7 @@ export class JobNewComponent implements OnInit {
       execution: {
         event: {
           eventType: 'SingleJobExecutionEvent',
-          startAt: this.signupForm.value.startAt
+          startAt: timeFormatted
         },
         pattern: this.signupForm.value.pattern,
 
