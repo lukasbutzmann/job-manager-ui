@@ -145,8 +145,8 @@ export class JobNewComponent implements OnInit {
       processingTool: this.signupForm.value.processingTool,
       productCollection: relevantProductCollection,
       retrySettings: {
-        maxRetries: 0,
-        retryDelay_Millies: 0
+        maxRetries: 3,
+        retryDelay_Millies: 1
       },
       temporalCoverage: {
         duration: this.signupForm.value.duration,
