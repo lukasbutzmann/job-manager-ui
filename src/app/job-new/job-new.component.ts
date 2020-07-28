@@ -45,7 +45,11 @@ export class JobNewComponent implements OnInit {
   receivedCloudCoverage: Event;
 
   // For process planing
-  planProcessing = '';
+   planProcessing = '';
+
+  // for retry setting
+  retryRate = 3;
+  retryDelay = 500;
 
   // For error messages
   error: null;
@@ -117,6 +121,7 @@ export class JobNewComponent implements OnInit {
     const relevantProductCollection = this.valueProductCollection(this.processMappings, this.selectedProcessingTool);
     // Create list of input subsets as value for post request key 'inputs' by applying custom method 'valueInputs'
     const inputArray = this.valueInputs(this.signupForm);
+
     // Create date object from input of datepicker and timepicker
     // create datetime for planned single execution
     const someV = this.createDateTimeObject(this.signupForm);
@@ -143,15 +148,15 @@ export class JobNewComponent implements OnInit {
       processingTool: this.signupForm.value.processingTool,
       productCollection: relevantProductCollection,
       retrySettings: {
-        maxRetries: 3,
-        retryDelay_Millies: 1
+        maxRetries: this.signupForm.value.retryRate,
+        retryDelay_Millies: this.signupForm.value.retryDelay
       },
       temporalCoverage: {
         duration: this.signupForm.value.duration,
       },
       useCase: this.signupForm.value.useCase,
     };
-    // console.log(this.jobForPost);
+    console.log(this.jobForPost);
   }
 
 

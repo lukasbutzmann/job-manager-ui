@@ -145,7 +145,9 @@
           P1Y14D enspricht dem letzten Jahr und 14 Tage (D für Englisch 'day')
         </small>
       </div>
-      <br />
+      <br>
+
+
 
       <!-- Job description-->
       <div class="form-group">
@@ -184,11 +186,13 @@
 
       <h4 style="color: #4d80bd;">Diesen Job planen</h4>
       <p style="color: dimgray;">
-        Die folgenden Angaben werden benötigt, um anzugeben wie eine Analyse ausgeführt werden soll:
-        Sofort einmal erstellen, einmalig zu einem definierten Zeitpunkt, oder mehrfach in einem definierten Rhythmus.
+        Die folgenden Angaben werden benötigt, um anzugeben wie eine Analyse
+        ausgeführt werden soll: Sofort einmal erstellen, einmalig zu einem
+        definierten Zeitpunkt, oder mehrfach in einem definierten Rhythmus.
+        Außerdem hast du hier die Möglichkeit, weitere Parameter einzugeben, wie sich das System beim Erstellen eines Jobs verhalten soll.
       </p>
 
-      <!--Product creation planing-->
+      <!--Product creation planning-->
       <div class="form-group">
         <label>Ausführung <span style="color: red;">*</span></label>
         <select
@@ -230,26 +234,6 @@
         </small>
       </div>
 
-      <!--Single Job Processing Date-->
-      <!--       <div
-        class="form-group"
-        *ngIf="planProcessing == 'Einmalige Produkterstellung planen'"
-      >
-        <label for="startAt">Datum der Produkterstellung</label>
-        <input
-          style="max-width: 350px;"
-          class="form-control"
-          id="startAt"
-          placeholder="z.B.   2021-07-23T15:00:0Z"
-          ngModel
-          name="startAt"
-        />
-        <small id="Help" class="form-text text-muted">
-          Bitte gib Datum und Zeit wie folgt an:
-          Jahr-Monat-TagTStunde:Minute:SekundeZ
-        </small>
-      </div> -->
-
       <!-- Datepicker-->
       <div
         class="from-group"
@@ -288,7 +272,50 @@
         <!-- <hr />
         <pre>Selected time: {{ time | json }}</pre> -->
       </div>
+      <br>
 
+           <!------- Retry settings ------>
+      <!-- Retry rate-->
+      <div class="form-group">
+        <label>Wiederholungsrate <span style="color: gray;">optional</span></label>
+        <input
+          class="form-control"
+          style="max-width: 350px;"
+          type="number"
+          min="0"
+          max="10"
+          oninput="validity.valid||(value='');"
+          id="retryRate"
+          ngModel
+          name="retryRate"
+          [(ngModel)]="retryRate"
+        />
+        <small id="Help" class="form-text text-muted">
+          Gib hier an, wie oft der Versuch einen Job zu erstellen wiederholt
+          werden soll, falls ein Versuch fehlschlägt.
+        </small>
+      </div>
+
+      <!-- Retry delay-->
+      <div class="form-group">
+        <label>Zeitabstand zwischen den wiederholten Versuchen (in ms) <span style="color: gray;">optional</span></label>
+        <input
+          class="form-control"
+          style="max-width: 350px;"
+          type="number"
+          min="0"
+          max="12000"
+          oninput="validity.valid||(value='');"
+          id="retryDelay"
+          [(ngModel)]="retryDelay"
+          name="retryDelay"
+        />
+        <small id="Help" class="form-text text-muted">
+          Gib hier den Zeitabstand an, der zwischen zwei Versuchen, einen Job zu erstellen, liegen soll. <br>
+          Limit ist hier 12000ms, entsprechend 12s.
+        </small>
+      </div>
+      <br>
       <br />
 
       <!-- <pre>{{ f.value | json }}</pre> -->
@@ -305,21 +332,10 @@
       </div>
 
       <!--Validation button, when clicked,the modal opens-->
-      <button
-        class="btn btn-lg btn-outline-primary"
-        (click)="setJob()"
-        [disabled]="!f.valid"
-      >
+      <button class="btn btn-lg btn-outline-primary" (click)="setJob()" [disabled]="!f.valid">
         <!--[disabled]="!f.valid" -->
         Job checken und abschicken
       </button>
-
-
-
-
-
-
-
 
       <!-------------------Modal----------------------->
 
@@ -373,11 +389,11 @@
             {{ jobForPost.temporalCoverage.duration }}
           </p>
 
+
           <!--Process planning-->
           <p>
-            <b>
-              Analyseausführung:</b> <br>
-              {{f.controls['planProcessing'].value}}
+            <b> Analyseausführung:</b> <br />
+            {{ f.controls["planProcessing"].value }}
           </p>
 
           <!--Cron Pattern-->
@@ -388,7 +404,7 @@
           <!--Single Event DateTime-->
           <p *ngIf="jobForPost.execution.event.startAt">
             <b>Ausführungsmoment: </b> <br />
-            {{ jobForPost.execution.event.startAt }}
+            {{ jobForPost.execution.event.startAt | date: "long" }}
           </p>
           <br />
           <hr />

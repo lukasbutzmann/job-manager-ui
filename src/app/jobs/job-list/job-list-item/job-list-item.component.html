@@ -5,7 +5,7 @@
   <div style="padding: 10px;" class="card-body">
     <p class="card-text">{{ job.description }}</p>
     <p class="card-text">
-      <small class="text-muted">Erstellt: {{ job.created }}</small>
+      <small class="text-muted">Erstellt: {{ job.created | date:'fullDate' }}</small>
     </p>
     <div class="row">
       <div class="col-10">
@@ -68,7 +68,7 @@
             </p>
             <p>
               <b>Erstellt:</b> <br />
-              {{ job.created }}
+              {{ job.created | date }}
             </p>
             <p>
               <b>Observationsgebiet (Koordinatenangabe in EPSG:4326)</b> <br />
@@ -88,9 +88,8 @@
             </p>
             <div *ngIf="job.execution.event">
               <p *ngIf="job.execution.event.startAt">
-                <b>Einmaliger Ausführungsmoment (RFC 3339)</b><br />{{
-                  job.execution.event.startAt
-                }}
+                <b>Einmaliger Ausführungsmoment (RFC 3339)</b><br />
+                {{  job.execution.event.startAt | date:'full'}}
               </p>
             </div>
 
