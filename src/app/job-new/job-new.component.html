@@ -184,24 +184,23 @@
 
       <h4 style="color: #4d80bd;">Diesen Job planen</h4>
       <p style="color: dimgray;">
-        Die folgenden Angaben werden nur dann benötigt, wenn eine Analyse
-        entweder einmalig zu einem bestimmten Zeitpunkt oder mehrfach ausgeführt
-        werden soll. Ohne diese Angaben wird die gewählte Analyse einmal nach
-        klicken auf den 'Abschicken'-Knopf ausgeführt, mit dem Ergebnis, dass
-        das gewünschte Produkt einmal sofort erstellt wird.
+        Die folgenden Angaben werden benötigt, um anzugeben wie eine Analyse ausgeführt werden soll:
+        Sofort einmal erstellen, einmalig zu einem definierten Zeitpunkt, oder mehrfach in einem definierten Rhythmus.
       </p>
 
       <!--Product creation planing-->
       <div class="form-group">
-        <label>Ausführung</label>
+        <label>Ausführung <span style="color: red;">*</span></label>
         <select
           style="max-width: 350px;"
           class="form-control"
           id="planProcessing"
           name="planProcessing"
           [(ngModel)]="planProcessing"
+          required
         >
-          <option selected>Sofort ausführen</option>
+          <option selected></option>
+          <option>Sofort ausführen</option>
           <option>Einmalige Produkterstellung planen</option>
           <option>Regelmäßige Produkterstellung planen</option>
         </select>
@@ -212,7 +211,10 @@
         class="form-group"
         *ngIf="planProcessing == 'Regelmäßige Produkterstellung planen'"
       >
-        <label for="pattern">Ausführungsmoment als Cronjob</label>
+        <label for="pattern"
+          >Ausführungsmoment als Cronjob
+          <span style="color: red;">*</span></label
+        >
         <input
           style="max-width: 350px;"
           class="form-control"
@@ -220,6 +222,7 @@
           placeholder="z.B.   5 0 * 8 *"
           ngModel
           name="pattern"
+          required
         />
         <small id="Help" class="form-text text-muted">
           Wie du einen Cronjob angibst findest du hier:
@@ -248,34 +251,39 @@
       </div> -->
 
       <!-- Datepicker-->
-            <div
+      <div
         class="from-group"
         *ngIf="planProcessing == 'Einmalige Produkterstellung planen'"
       >
-        <label for="datePicker">Datum der Produkterstellung</label> <br />
+        <label for="datePicker"
+          >Datum der Produkterstellung <span style="color: red;">*</span></label
+        >
+        <br />
         <ngb-datepicker
           id="datePicker"
           name="datePicker"
           #dp
           [(ngModel)]="datePickerModel"
           (navigate)="date = $event.next"
+          required
         ></ngb-datepicker>
         <!-- <pre>datePickerModel: {{ datePickerModel | json }}</pre> -->
       </div>
-      <br>
-
-
+      <br />
 
       <!-- Timepicker-->
-            <div
+      <div
         class="from-group"
         *ngIf="planProcessing == 'Einmalige Produkterstellung planen'"
       >
-        <label for="timePicker">Zeit der Produkterstellung</label>
+        <label for="timePicker"
+          >Zeit der Produkterstellung <span style="color: red;">*</span></label
+        >
         <ngb-timepicker
           [(ngModel)]="time"
           id="timePicker"
           name="timePicker"
+          required
         ></ngb-timepicker>
         <!-- <hr />
         <pre>Selected time: {{ time | json }}</pre> -->
@@ -305,6 +313,13 @@
         <!--[disabled]="!f.valid" -->
         Job checken und abschicken
       </button>
+
+
+
+
+
+
+
 
       <!-------------------Modal----------------------->
 
@@ -351,11 +366,20 @@
             <b>Produkt: </b> <br />
             {{ jobForPost.productCollection }}
           </p>
+
           <!--Period-->
-          <p *ngIf="jobForPost.temporalCoverage.duration">
+          <p>
             <b>Zeitliche Abdeckung: </b> <br />
             {{ jobForPost.temporalCoverage.duration }}
           </p>
+
+          <!--Process planning-->
+          <p>
+            <b>
+              Analyseausführung:</b> <br>
+              {{f.controls['planProcessing'].value}}
+          </p>
+
           <!--Cron Pattern-->
           <p *ngIf="jobForPost.execution.pattern">
             <b>Ausführungsmoment: </b> <br />
@@ -381,6 +405,7 @@
                 {{ input.value }}
               </p>
             </div>
+
             <!--Copernicus-->
             <div *ngIf="input.sourceType == 'CopernicusSubsetDefinition'">
               <p>
@@ -413,7 +438,7 @@
               color: #e3ecf6;
               background-color: #4d80bd;
             "
-            (click)="submitThisJob()"
+            (click)="submitThisJob(); modal.close('Save click')"
           >
             Abschicken
           </button>

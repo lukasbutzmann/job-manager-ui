@@ -24,7 +24,6 @@ export class DataService {
   // Fetch all jobs from server
   getData() {
     return this.http.
-      // tslint:disable-next-line: max-line-length
       get<Page<Job>>(environment.wacodisAPI)
       .pipe(
         catchError(this.handleError)); // http://localhost:8080/jobDefinitions
@@ -47,7 +46,7 @@ export class DataService {
 
   // Handle error
   handleError(error: HttpErrorResponse) {
-    // console.log(error.status);
+    console.log(error.status);
     return throwError(error);
   }
 }

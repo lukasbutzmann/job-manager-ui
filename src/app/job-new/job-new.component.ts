@@ -45,7 +45,7 @@ export class JobNewComponent implements OnInit {
   receivedCloudCoverage: Event;
 
   // For process planing
-  planProcessing = 'Sofort ausführen';
+  planProcessing = '';
 
   // For error messages
   error: null;
@@ -60,6 +60,8 @@ export class JobNewComponent implements OnInit {
 
   // for Timepicker
   time = { hour: 13, minute: 30 };
+
+
 
   constructor(
     private router: Router,
@@ -116,13 +118,9 @@ export class JobNewComponent implements OnInit {
     // Create list of input subsets as value for post request key 'inputs' by applying custom method 'valueInputs'
     const inputArray = this.valueInputs(this.signupForm);
     // Create date object from input of datepicker and timepicker
-    const jsdate = new Date(
-      this.signupForm.value.datePicker.year,
-      this.signupForm.value.datePicker.month - 1,
-      this.signupForm.value.datePicker.day,
-      this.signupForm.value.timePicker.hour,
-      this.signupForm.value.timePicker.minute);
-    const timeFormatted = jsdate.toISOString();
+    // create datetime for planned single execution
+    const someV = this.createDateTimeObject(this.signupForm);
+    const timeFormatted = someV;
 
     // Set job object which should be sent to server with post request
     this.jobForPost = {
@@ -153,7 +151,7 @@ export class JobNewComponent implements OnInit {
       },
       useCase: this.signupForm.value.useCase,
     };
-    console.log(this.jobForPost);
+    // console.log(this.jobForPost);
   }
 
 
@@ -169,6 +167,7 @@ export class JobNewComponent implements OnInit {
           this.errorStatus = error.status;
           console.log(error);
         });
+    // console.log(this.jobForPost);
   }
 
 
@@ -229,6 +228,25 @@ export class JobNewComponent implements OnInit {
     return relevantProductName;
   }
 
+  /**
+   * The method create a datetime object in case the user selects a planned single process
+   * @param signupForm is an instance of the template form object
+   * @returns Method returns a date time object
+   */
+  private createDateTimeObject(signupForm: NgForm) {
+    if (this.signupForm.value.datePicker && this.signupForm.value.timePicker !== 'undefined') {
+      const jsdate = new Date(
+        signupForm.value.datePicker.year,
+        signupForm.value.datePicker.month - 1,
+        signupForm.value.datePicker.day,
+        signupForm.value.timePicker.hour,
+        signupForm.value.timePicker.minute);
+      console.log(jsdate);
+      return jsdate.toISOString();
+    } else {
+      const jsdate = null;
+      return jsdate;
+    }
+  }
 
 }
-
