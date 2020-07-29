@@ -2,7 +2,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -20,6 +20,13 @@ import { CopernicusSubsetComponent } from './job-new/copernicus-subset/copernicu
 import { StaticSubsetComponent } from './job-new/static-subset/static-subset.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+// for setting locales
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+
+
+registerLocaleData(localeDe);
 
 @NgModule({
   declarations: [
@@ -43,7 +50,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
 
   ],
-  providers: [DataService],
+  providers: [DataService, { provide: LOCALE_ID, useValue: 'de-At' } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

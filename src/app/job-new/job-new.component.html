@@ -145,9 +145,7 @@
           P1Y14D enspricht dem letzten Jahr und 14 Tage (D für Englisch 'day')
         </small>
       </div>
-      <br>
-
-
+      <br />
 
       <!-- Job description-->
       <div class="form-group">
@@ -189,7 +187,8 @@
         Die folgenden Angaben werden benötigt, um anzugeben wie eine Analyse
         ausgeführt werden soll: Sofort einmal erstellen, einmalig zu einem
         definierten Zeitpunkt, oder mehrfach in einem definierten Rhythmus.
-        Außerdem hast du hier die Möglichkeit, weitere Parameter einzugeben, wie sich das System beim Erstellen eines Jobs verhalten soll.
+        Außerdem hast du hier die Möglichkeit, weitere Parameter einzugeben, wie
+        sich das System beim Erstellen eines Jobs verhalten soll.
       </p>
 
       <!--Product creation planning-->
@@ -205,15 +204,15 @@
         >
           <option selected></option>
           <option>Sofort ausführen</option>
-          <option>Einmalige Produkterstellung planen</option>
-          <option>Regelmäßige Produkterstellung planen</option>
+          <option>Einmalige Produkterstellung</option>
+          <option>Regelmäßige Produkterstellung</option>
         </select>
       </div>
 
       <!--Cronjob-->
       <div
         class="form-group"
-        *ngIf="planProcessing == 'Regelmäßige Produkterstellung planen'"
+        *ngIf="planProcessing == 'Regelmäßige Produkterstellung'"
       >
         <label for="pattern"
           >Ausführungsmoment als Cronjob
@@ -237,7 +236,7 @@
       <!-- Datepicker-->
       <div
         class="from-group"
-        *ngIf="planProcessing == 'Einmalige Produkterstellung planen'"
+        *ngIf="planProcessing == 'Einmalige Produkterstellung'"
       >
         <label for="datePicker"
           >Datum der Produkterstellung <span style="color: red;">*</span></label
@@ -258,7 +257,7 @@
       <!-- Timepicker-->
       <div
         class="from-group"
-        *ngIf="planProcessing == 'Einmalige Produkterstellung planen'"
+        *ngIf="planProcessing == 'Einmalige Produkterstellung'"
       >
         <label for="timePicker"
           >Zeit der Produkterstellung <span style="color: red;">*</span></label
@@ -272,12 +271,14 @@
         <!-- <hr />
         <pre>Selected time: {{ time | json }}</pre> -->
       </div>
-      <br>
+      <br />
 
-           <!------- Retry settings ------>
+      <!------- Retry settings ------>
       <!-- Retry rate-->
       <div class="form-group">
-        <label>Wiederholungsrate <span style="color: gray;">optional</span></label>
+        <label
+          >Wiederholungsrate <span style="color: gray;">optional</span></label
+        >
         <input
           class="form-control"
           style="max-width: 350px;"
@@ -292,13 +293,17 @@
         />
         <small id="Help" class="form-text text-muted">
           Gib hier an, wie oft der Versuch einen Job zu erstellen wiederholt
-          werden soll, falls ein Versuch fehlschlägt.
+          werden soll, falls ein Versuch fehlschlägt. <br>
+          Defaultwert ist 3, Limit ist 10.
         </small>
       </div>
 
       <!-- Retry delay-->
       <div class="form-group">
-        <label>Zeitabstand zwischen den wiederholten Versuchen (in ms) <span style="color: gray;">optional</span></label>
+        <label
+          >Zeitabstand zwischen den wiederholten Versuchen (in ms)
+          <span style="color: gray;">optional</span></label
+        >
         <input
           class="form-control"
           style="max-width: 350px;"
@@ -311,11 +316,12 @@
           name="retryDelay"
         />
         <small id="Help" class="form-text text-muted">
-          Gib hier den Zeitabstand an, der zwischen zwei Versuchen, einen Job zu erstellen, liegen soll. <br>
-          Limit ist hier 12000ms, entsprechend 12s.
+          Gib hier den Zeitabstand an, der zwischen zwei Versuchen, einen Job zu
+          erstellen, liegen soll. <br />
+          Der Defaultwert liegt bei 500ms. Limit ist hier 12000ms, entsprechend 12s.
         </small>
       </div>
-      <br>
+      <br />
       <br />
 
       <!-- <pre>{{ f.value | json }}</pre> -->
@@ -332,7 +338,11 @@
       </div>
 
       <!--Validation button, when clicked,the modal opens-->
-      <button class="btn btn-lg btn-outline-primary" (click)="setJob()" [disabled]="!f.valid">
+      <button
+        class="btn btn-lg btn-outline-primary"
+        (click)="setJob()"
+        [disabled]="!f.valid"
+      >
         <!--[disabled]="!f.valid" -->
         Job checken und abschicken
       </button>
@@ -359,6 +369,12 @@
             >
           </p>
 
+          <!--Produkttyp-->
+          <p>
+            <b>Produkt: </b> <br />
+            {{ jobForPost.productCollection }}
+          </p>
+
           <!--Coordinates-->
           <p>
             <b>Koordinaten</b> <br />
@@ -377,18 +393,11 @@
             {{ jobForPost.useCase }}
           </p>
 
-          <!--Produkttyp-->
-          <p>
-            <b>Produkt: </b> <br />
-            {{ jobForPost.productCollection }}
-          </p>
-
           <!--Period-->
           <p>
             <b>Zeitliche Abdeckung: </b> <br />
             {{ jobForPost.temporalCoverage.duration }}
           </p>
-
 
           <!--Process planning-->
           <p>
@@ -404,7 +413,7 @@
           <!--Single Event DateTime-->
           <p *ngIf="jobForPost.execution.event.startAt">
             <b>Ausführungsmoment: </b> <br />
-            {{ jobForPost.execution.event.startAt | date: "long" }}
+            {{ jobForPost.execution.event.startAt | date: "medium" }}
           </p>
           <br />
           <hr />
