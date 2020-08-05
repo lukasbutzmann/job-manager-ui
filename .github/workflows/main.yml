@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
+        node-version: [12.x]
 
     steps:
     - name: Cache node modules
@@ -30,6 +30,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm test
-    - run: npm build
+    - name: npm install and npm run build
+      run: |
+        npm ci
+        npm run build:ci
